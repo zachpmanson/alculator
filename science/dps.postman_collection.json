@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "a515237a-7827-4262-8cab-3ee5f427faa9",
+		"name": "dps",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "beers",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Host",
+						"value": " api.danmurphys.com.au",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": " Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4280.88 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": " application/json, text/plain, */*",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": " en-US,en;q=0.5",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": " gzip, deflate, br",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": " application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": " 133",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": " https://www.danmurphys.com.au",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": " keep-alive",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": " https://www.danmurphys.com.au/",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": " dtCookie=v_4_srv_3_sn_E3A591864E4EEFD7A064B53CCB310AA6_perc_100000_ol_0_mul_1_app-3Ada3b18b50a85feaa_0_rcs-3Acss_0; __cf_bm=GTEa_IfNAFKGsvoQSbSY7ZRF4rN8QCB7E9ik3Eey_UQ-1671700659-0-AWM44F897t0qcshcoJGDdK+vJOk10WrXCg/mm2qCUViXo5wELNCyXp6LMotH7qrrybH4MSA5wcm93qR9ysPVyrs=; rxVisitor=1671699222104IH4DAEK5L5IDBOSE1RLSON99A81UE6EG; dtPC=3$100650437_380h1vEGTNAGRWFIORAJLNLRKFCOKRBAUDACRT-0e0; rxvt=1671701022105|1671699222105; AMCV_1124C2D754E497DC0A4C98C6%40AdobeOrg=1176715910%7CMCIDTS%7C19349%7CMCMID%7C56042281020793831053169413434720045876%7CMCAID%7CNONE%7CMCOPTOUT-1671707850s%7CNONE%7CvVersion%7C5.4.0; mbox=session#7f2132db2f384236a6ea5099be99abb1#1671702511|PC#7f2132db2f384236a6ea5099be99abb1.36_0#1734945451; at_check=true; AMCVS_1124C2D754E497DC0A4C98C6%40AdobeOrg=1; w-arjshtsw=e7f93d25736304abf8df1766e9351310aeuzkhbpby; w-rsjhf=PGcgdD0iOWRkNmZmNDYwMWI0NGRjNWE0YzNmMzhiMmFjYjdmZjJicmZ0emdyanR5IiAvPg==; ARRAffinity=f88605633f66800ff2072935a36c85f7d939830249d5f37e20243f245c5d1f9b; ARRAffinitySameSite=f88605633f66800ff2072935a36c85f7d939830249d5f37e20243f245c5d1f9b; __cf_bm=Ua5W_pgEa9rg3qcDrhhzGYMcds_x9A0_5TjyKm0AYEo-1671700661-0-AYzEOqFmTQine1NgT045RBLMPy9QRtoPqHZEmCwkUh+BdxS1wuN/HKhbFGa+rf+9Q9YnXP269+/W0BJrN8GfgL4=; sf_wdt_session_expiration_session=1671699245261; sf_wdt_customer_id=9aw1dm7oo; sf_wdt_fingerprint=26243371180392; __zlcmid=1DYlT7STKK0biYq; sf_change_page=true",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": " empty",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": " cors",
+						"type": "text"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": " same-site",
+						"type": "text"
+					},
+					{
+						"key": "TE",
+						"value": " trailers",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"department\":\"beer\",\"filters\":[],\"pageNumber\":1,\"pageSize\":24,\"sortType\":\"Relevance\",\"Location\":\"ListerFacet\",\"PageUrl\":\"/beer/all\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://api.danmurphys.com.au/apis/ui/Browse",
+					"protocol": "http",
+					"host": [
+						"api",
+						"danmurphys",
+						"com",
+						"au"
+					],
+					"path": [
+						"apis",
+						"ui",
+						"Browse"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

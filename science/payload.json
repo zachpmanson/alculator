@@ -1,0 +1,9 @@
+{
+  "department": "beer",
+  "filters": [],
+  "pageNumber": 1,
+  "pageSize": 24,
+  "sortType": "Relevance",
+  "Location": "ListerFacet",
+  "PageUrl": "/beer/all?i_cid=dskmob:7837:clp-beer-range-all"
+}

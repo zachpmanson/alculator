@@ -1,0 +1,545 @@
+[
+  { "name": "Coopers Crown Seals 100 Pack", "price": 0, "strength": null },
+  { "name": "Coopers PET Caps 30 Pack", "price": null, "strength": null },
+  { "name": "Coopers Carbonation Drops 250g", "price": null, "strength": null },
+  {
+    "name": "Great Northern Brewing Co. Original 375mL Can",
+    "price": 0,
+    "strength": 1.2,
+    "percentage": "4.2%"
+  },
+  {
+    "name": "James Squire Hop Thief Pale Ale Cans 355mL",
+    "price": 5.29,
+    "strength": 1.5,
+    "percentage": "5.3%"
+  },
+  { "name": "Coopers Dextrose 1kg", "price": null, "strength": null },
+  {
+    "name": "Hook Norton Old Hooky Ale 500mL",
+    "price": 0,
+    "strength": 1.8,
+    "percentage": "4.60%"
+  },
+  {
+    "name": "Sol Beer 650mL",
+    "price": 0,
+    "strength": 2.2,
+    "percentage": "4.2%"
+  },
+  {
+    "name": "Hook Norton Twelve Days 500mL",
+    "price": 0,
+    "strength": 2.2,
+    "percentage": "5.5%"
+  },
+  {
+    "name": "Hook Norton Haymaker Pale Ale 500mL",
+    "price": 0,
+    "strength": 2,
+    "percentage": "5.00%"
+  },
+  {
+    "name": "Adnams Broadside Strong Original 500mL",
+    "price": 0,
+    "strength": 1.6,
+    "percentage": "6.30%"
+  },
+  {
+    "name": "Shepherd Neame Spitfire Kentish Ale 500mL",
+    "price": 0,
+    "strength": 1.8,
+    "percentage": "4.5%"
+  },
+  { "name": "Coopers Brewing Sugar 1kg", "price": null, "strength": null },
+  { "name": "Coopers Brew Enhancer No.1 1kg", "price": null, "strength": null },
+  {
+    "name": "Weihenstephaner Pilsner Bottle 500mL",
+    "price": 0,
+    "strength": 2,
+    "percentage": "5.1%"
+  },
+  {
+    "name": "Weihenstephaner Kristall Weissbier Bottles 500mL",
+    "price": 0,
+    "strength": 2.1,
+    "percentage": "5.4%"
+  },
+  {
+    "name": "Shepherd Neame Bishops Finger Ale 500mL",
+    "price": 0,
+    "strength": 2.1,
+    "percentage": "5.4%"
+  },
+  {
+    "name": "Weihenstephaner Tradition Bayrisch Dunkel Bottles 500mL",
+    "price": 0,
+    "strength": 2,
+    "percentage": "5.2%"
+  },
+  {
+    "name": "Erdinger Kristall Weißbier Bottles 500mL",
+    "price": 0,
+    "strength": 2.1,
+    "percentage": "5.3%"
+  },
+  {
+    "name": "Shepherd Neame & Co Double Stout 500mL",
+    "price": 0,
+    "strength": 2.1,
+    "percentage": "5.20%"
+  },
+  {
+    "name": "Shepherd Neame & Co India Pale Ale 500mL",
+    "price": 0,
+    "strength": 2.4,
+    "percentage": "6.1%"
+  },
+  {
+    "name": "Shepherd Neame 1698 Strong Ale 500mL",
+    "price": 0,
+    "strength": 2.5,
+    "percentage": "6.5%"
+  },
+  {
+    "name": "Rugged Thumb Ginger Beer Bottle 500mL",
+    "price": 0,
+    "strength": 1.6,
+    "percentage": "4%"
+  },
+  {
+    "name": "Sapporo Premium Lager Cans 650mL",
+    "price": 0,
+    "strength": 2.6,
+    "percentage": "5.0%"
+  },
+  {
+    "name": "Guinness Extra Stout 750mL",
+    "price": 0,
+    "strength": 3.6,
+    "percentage": "6.0%"
+  },
+  { "name": "Coopers Brew Enhancer No.2 1kg", "price": null, "strength": null },
+  { "name": "Coopers Light Dry Malt 500g", "price": null, "strength": null },
+  {
+    "name": "Chimay White 330mL",
+    "price": 0,
+    "strength": 2.1,
+    "percentage": "8.0%"
+  },
+  {
+    "name": "Old Fart Ale 500mL",
+    "price": 0,
+    "strength": 2,
+    "percentage": "5.00%"
+  },
+  {
+    "name": "Chimay Blue 330mL",
+    "price": 0,
+    "strength": 2.3,
+    "percentage": "9.00%"
+  },
+  { "name": "Coopers Brew Enhancer No.3 1kg", "price": null, "strength": null },
+  {
+    "name": "Little Fat Lamb Ginger 375mL",
+    "price": 3.99,
+    "strength": 2.4,
+    "percentage": "8%"
+  },
+  { "name": "Coopers Home Brew Dark Ale 1.7kg", "price": 0, "strength": null },
+  {
+    "name": "Coopers Home Brew Real Ale 1.7kg",
+    "price": null,
+    "strength": null
+  },
+  {
+    "name": "Coopers Home Brew Lager 1.7kg",
+    "price": null,
+    "strength": 0,
+    "percentage": "0%"
+  },
+  {
+    "name": "Coopers Home Brew Draught 1.7kg",
+    "price": null,
+    "strength": null
+  },
+  {
+    "name": "Atomic Hazy Cans 330mL",
+    "price": 7.29,
+    "strength": 1.04,
+    "percentage": "4.5%"
+  },
+  {
+    "name": "Coopers PET Bottles and Caps 15 Pack",
+    "price": null,
+    "strength": null
+  },
+  {
+    "name": "Little Creatures Squeaky Clean Carton Can 375mL",
+    "price": 4.59,
+    "strength": 1.2,
+    "percentage": "4%"
+  },
+  {
+    "name": "Colossal Brewing Astral Drift Wheat Beer Can 375mL",
+    "price": 4.99,
+    "strength": 1.4,
+    "percentage": "4.8%"
+  },
+  {
+    "name": "Pirate Life Brewing Sunlit Aussie Wheat Ale Cans 355mL",
+    "price": 4.99,
+    "strength": 1.3,
+    "percentage": "4.6%"
+  },
+  {
+    "name": "La Chouffe Ale 750mL",
+    "price": 0,
+    "strength": 4.7,
+    "percentage": "8.00%"
+  },
+  {
+    "name": "Coopers Home Brew English Bitter 1.7kg",
+    "price": null,
+    "strength": null
+  },
+  {
+    "name": "Coopers Home Brew European Lager 1.7kg",
+    "price": null,
+    "strength": null
+  },
+  {
+    "name": "White Bay Brewing Crusher Hazy Pale Can 355mL",
+    "price": 5.49,
+    "strength": 3.5,
+    "percentage": "1%"
+  },
+  {
+    "name": "Moon Dog Kiwi Hopped XPA 330mL",
+    "price": 4.99,
+    "strength": 1.3,
+    "percentage": "5%"
+  },
+  {
+    "name": "Brooklyn Brewery Bel Air Sour Ginger 375mL",
+    "price": 4.99,
+    "strength": 1.3,
+    "percentage": "4.5%"
+  },
+  {
+    "name": "Mosey Blueberry Fruity Beer 300mL",
+    "price": 5.99,
+    "strength": 1,
+    "percentage": "4.2%"
+  },
+  {
+    "name": "Mosey Passionfruit Fruity Beer 300mL",
+    "price": 5.99,
+    "strength": 1,
+    "percentage": "4.2%"
+  },
+  {
+    "name": "Sungazer Fruity Beer Raspberry Can 300mL",
+    "price": 5.99,
+    "strength": 1,
+    "percentage": "4.2%"
+  },
+  {
+    "name": "Pirate Life x Knobby Mango Hazy Pale 355mL",
+    "price": 5.49,
+    "strength": 1.4,
+    "percentage": "4.6%"
+  },
+  {
+    "name": "Coopers Home Brew Canadian Blonde 1.7kg",
+    "price": null,
+    "strength": null
+  },
+  {
+    "name": "Coopers Home Brew Mexican Cerveza 1.7kg",
+    "price": null,
+    "strength": null
+  },
+  {
+    "name": "Mosey Lime Fruity Beer 300mL",
+    "price": 5.99,
+    "strength": 1,
+    "percentage": "4.2%"
+  },
+  {
+    "name": "Nam Nam Alley Nam Nam Alley Lager Can 500ml",
+    "price": 4.99,
+    "strength": 1.8,
+    "percentage": "4.5%"
+  },
+  {
+    "name": "Sungazer Fruity Beer Watermelon Can 300mL",
+    "price": 5.99,
+    "strength": 1,
+    "percentage": "4.2%"
+  },
+  {
+    "name": "Sungazer Fruity Beer Mango Can 300mL",
+    "price": 5.99,
+    "strength": 1,
+    "percentage": "4.2%"
+  },
+  {
+    "name": "Philter Philter Ginger Beer",
+    "price": 6.99,
+    "strength": 1,
+    "percentage": "4.0%"
+  },
+  {
+    "name": "Matilda Bay Aus Wheat Ale Can 375ml",
+    "price": 4.99,
+    "strength": 1.3,
+    "percentage": "4.5%"
+  },
+  {
+    "name": "Matso's Hard Lemon Cans 330mL",
+    "price": 5.99,
+    "strength": 1.3,
+    "percentage": "4.6%"
+  },
+  {
+    "name": "Matso's Hard Orange & Yuzu Can 330mL",
+    "price": 5.99,
+    "strength": 1.3,
+    "percentage": "4.6%"
+  },
+  {
+    "name": "XXXX Gold Lager 750mL",
+    "price": 6.29,
+    "strength": 1,
+    "percentage": "3.5000000000000004%"
+  },
+  {
+    "name": "Pirate Life Brewing Strawberry And Watermelon Crush 355mL Cans",
+    "price": 4.99,
+    "strength": 1.3,
+    "percentage": "4.6%"
+  },
+  {
+    "name": "Matsos Hard Berry & Lime Can 330ml",
+    "price": 5.99,
+    "strength": 1.3,
+    "percentage": "4.6%"
+  },
+  {
+    "name": "Sudo Lager Can 350mL",
+    "price": 4.99,
+    "strength": 1.3,
+    "percentage": "5%"
+  },
+  {
+    "name": "Steel City All Day Lager Can 375mL",
+    "price": 3.79,
+    "strength": 1,
+    "percentage": "3.5%"
+  },
+  {
+    "name": "Pirate Life Brewing Tropical Crush 355mL Cans",
+    "price": 4.99,
+    "strength": 1.3,
+    "percentage": "4.60%"
+  },
+  {
+    "name": "Hawke's Underdog Session Lager 375mL",
+    "price": 4,
+    "strength": 1,
+    "percentage": "3.5%"
+  },
+  {
+    "name": "Pirate Life Brewing Raspberry and Lemon Crush Cans 355mL",
+    "price": 4.99,
+    "strength": 1.3,
+    "percentage": "4.6%"
+  },
+  {
+    "name": "Lucky Beer 330mL",
+    "price": 4.99,
+    "strength": 1.3,
+    "percentage": "4.8%"
+  },
+  {
+    "name": "Victoria Bitter Longneck 750mL",
+    "price": 7.49,
+    "strength": 2.9,
+    "percentage": "4.9%"
+  },
+  {
+    "name": "Pirate Life Brewing California Pale Ale 355mL Cans",
+    "price": 4.99,
+    "strength": 1.6,
+    "percentage": "5.80%"
+  },
+  {
+    "name": "Moon Dog Pomegranate Sour Ale 330mL",
+    "price": 5.69,
+    "strength": 1.4,
+    "percentage": "4.5%"
+  },
+  {
+    "name": "Mountain Goat North Street Pale Ale Can 375mL",
+    "price": 5.49,
+    "strength": 1.5,
+    "percentage": "5.2%"
+  },
+  {
+    "name": "White Bay Brewing Lager 355mL",
+    "price": 5.99,
+    "strength": 4.7,
+    "percentage": "1.3%"
+  },
+  {
+    "name": "Zeffer Carrot Cake Ginger Beer Can 330mL",
+    "price": 6.49,
+    "strength": 1,
+    "percentage": "4.0%"
+  },
+  {
+    "name": "Atomic Lemon Whip Sour Can 330mL",
+    "price": 5.99,
+    "strength": 1.2,
+    "percentage": "4.5%"
+  },
+  {
+    "name": "Mountain Goat Aussie Wheat Beer Can 375ml",
+    "price": 3.99,
+    "strength": 1.2,
+    "percentage": "4.2%"
+  },
+  {
+    "name": "Panhead Sandman Hazy Pale Ale 375mL Can",
+    "price": 6,
+    "strength": 1.5,
+    "percentage": "5.0%"
+  },
+  {
+    "name": "Tooheys New Bottle 750mL",
+    "price": 7.29,
+    "strength": 2.96,
+    "percentage": "4.6%"
+  },
+  {
+    "name": "White Bay Brewing Sunny Pale 355mL",
+    "price": 5.99,
+    "strength": 4,
+    "percentage": "1.3%"
+  },
+  {
+    "name": "Zytho Brewing Oaked Cherry Sour Beer Can 375ml",
+    "price": 5.99,
+    "strength": 1.4,
+    "percentage": "4.8%"
+  },
+  {
+    "name": "Peroni Nastro Azzurro Bottles 330mL",
+    "price": 4.79,
+    "strength": 1.3,
+    "percentage": "5.0%"
+  },
+  {
+    "name": "Calaverita Cerveza Lager Bottle 355mL",
+    "price": 4.99,
+    "strength": 1.2,
+    "percentage": "4.4%"
+  },
+  {
+    "name": "Del Centro Cerveza Lager Can 355ml",
+    "price": 5.49,
+    "strength": 1.2,
+    "percentage": "4.4%"
+  },
+  {
+    "name": "New Dawn Brewing Pale Ale Can 375mL",
+    "price": 6.49,
+    "strength": 1.2,
+    "percentage": "4.5%"
+  },
+  {
+    "name": "Young Henrys Hazy Pale Ale 375mL",
+    "price": 5.49,
+    "strength": 1.5,
+    "percentage": "5.2%"
+  },
+  {
+    "name": "Little Creatures Ancient Traveller Ethiopian Black Barley Stout 375mL",
+    "price": 5.49,
+    "strength": 1.8,
+    "percentage": "6%"
+  },
+  {
+    "name": "Grolsch Premium Lager Swing Top 450mL",
+    "price": 5.99,
+    "strength": 1.8,
+    "percentage": "5.0%"
+  },
+  {
+    "name": "Ekim Brewing Co Longboat Lager Can 375mL",
+    "price": 5.49,
+    "strength": 1.4,
+    "percentage": "4.8%"
+  },
+  {
+    "name": "John Boston Coastal XPA Can 375mL",
+    "price": 5.99,
+    "strength": 1.2,
+    "percentage": "4.2%"
+  },
+  {
+    "name": "Carlton Dry 700mL",
+    "price": 7.69,
+    "strength": 2.5,
+    "percentage": "4.5%"
+  },
+  {
+    "name": "Gage Roads Pipe Dreams Coastal Lager Can 330mL",
+    "price": 3.99,
+    "strength": 1.1,
+    "percentage": "4.2%"
+  },
+  {
+    "name": "Monsuta Okinawa Premium Draft Can 350mL",
+    "price": 4.99,
+    "strength": 1.4,
+    "percentage": "5%"
+  },
+  {
+    "name": "Moon Dog Orange zZAP Can 330mL",
+    "price": 6.49,
+    "strength": 1.6,
+    "percentage": "5.8%"
+  },
+  {
+    "name": "James Squire Broken Shackles Lager 330mL Bottle",
+    "price": 4.29,
+    "strength": 1.2,
+    "percentage": "4.6%"
+  },
+  {
+    "name": "Wakachangi Lager Bottles 330mL",
+    "price": 4.49,
+    "strength": 1.3,
+    "percentage": "5.0%"
+  },
+  {
+    "name": "Colossal Brewing Inner Gravity Passionfruit Sour Beer Can 375mL",
+    "price": 6.49,
+    "strength": 1.3,
+    "percentage": "4.3%"
+  },
+  {
+    "name": "Empire Fruity Beer Orange & Mango Can 300mL",
+    "price": 6.49,
+    "strength": 1,
+    "percentage": "4.2%"
+  },
+  {
+    "name": "Empire Fruity Beer Strawberry & Lime Can 300mL",
+    "price": 6.49,
+    "strength": 1,
+    "percentage": "4.2%"
+  }
+]
