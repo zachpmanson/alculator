@@ -70,7 +70,19 @@ body {
 
 a {
   color: lightskyblue;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: all 0.1s ease-in;
+}
+
+a:hover {
+  text-decoration-color: lightskyblue;
+}
+
+a:active {
+  color: white;
+  text-decoration-color: white;
+  transition: all 0s ease-in;
 }
 
 th,
@@ -102,6 +114,10 @@ th {
 
 .text-center {
   text-align: center;
+}
+
+.drink-name {
+  max-width: 50ch;
 }
 
 table {

@@ -8,7 +8,7 @@ export default function ResultList() {
 
   const tableBody = currentDrinks.map((item, index) => (
     <tr key={index}>
-      <td>
+      <td className="drink-name">
         <a href={`https://www.danmurphys.com.au/product/${item.stockcode}`}>{item.name}</a>
       </td>
       <td>{item.strength}</td>
