@@ -1,12 +1,6 @@
 export type DrinkType = "beer" | "cider";
 
-export type PackType =
-  | "sixpack"
-  | "single"
-  | "case"
-  | "promosixpack"
-  | "promosingle"
-  | "promocase";
+export type PackType = "sixpack" | "single" | "case" | "promosixpack" | "promosingle" | "promocase";
 
 export type Drink = {
   name: string;
@@ -15,6 +9,8 @@ export type Drink = {
   prices: {
     [key in PackType]: number;
   };
+  price?: number;
+  ratio: number;
   percentage: string;
 };
 

@@ -1,29 +1,10 @@
 import Head from "next/head";
-import { useCallback, useEffect } from "react";
+import Filters from "../components/filters";
 import ResultList from "../components/resultlist";
 import { useGlobal } from "../contexts/Global/context";
 import { DrinkType, PackType } from "../types";
 
 export default function Home() {
-  const {
-    currentDrinks,
-    setAllDrinks,
-    currentFilters,
-    currentFilters: { type, includePromo },
-    setCurrentFilters,
-    onSearchChange,
-  } = useGlobal();
-  const initPromo = includePromo;
-
-  useEffect(() => {
-    console.log("Filter updated");
-    fetch(`/api/drinks/${type}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAllDrinks(JSON.parse(data));
-      });
-  }, [type, setAllDrinks]);
-
   return (
     <>
       <Head>
@@ -33,61 +14,8 @@ export default function Home() {
       </Head>
       <main>
         <h1 className="col center text-center">Alculator</h1>
-        <div className="filters col center">
-          <input
-            type="search"
-            name="search"
-            placeholder="Search..."
-            onChange={onSearchChange}
-          />
-          <select
-            name="drinks"
-            id="drinks"
-            onChange={(e) =>
-              setCurrentFilters({
-                ...currentFilters,
-                type: e.target.value as DrinkType,
-              })
-            }
-          >
-            <option key="beer">Beer</option>
-            <option key="cider">Cider</option>
-          </select>
-          <select
-            name="pack"
-            id="pack"
-            onChange={(e) =>
-              setCurrentFilters({
-                ...currentFilters,
-                pack: e.target.value as PackType,
-              })
-            }
-          >
-            <option key="sixpack" value="sixpack">
-              Six Pack
-            </option>
-            <option key="single" value="single">
-              Single
-            </option>
-            <option key="case" value="case">
-              Case
-            </option>
-          </select>
-          <label>
-            <input
-              type="checkbox"
-              defaultChecked={initPromo}
-              onChange={() =>
-                setCurrentFilters({
-                  ...currentFilters,
-                  includePromo: !includePromo,
-                })
-              }
-            />
-            Include promotions
-          </label>
-        </div>
-        <ResultList listItems={currentDrinks} />
+        <Filters />
+        <ResultList />
       </main>
     </>
   );
