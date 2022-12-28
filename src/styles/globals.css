@@ -94,15 +94,42 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  padding: 1rem;
+  line-height: 1.4em;
 }
 
 a {
-  color: inherit;
+  color: lightskyblue;
   text-decoration: none;
+}
+
+th,
+td {
+  padding: 0.25rem 1rem;
+}
+
+th {
+  text-transform: uppercase;
 }
 
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
+}
+
+.filters * {
+  margin: 1rem 0.5rem;
+}
+
+.col {
+  max-width: 40rem;
+}
+
+.center {
+  margin: auto;
+}
+
+.text-center {
+  text-align: center;
 }
