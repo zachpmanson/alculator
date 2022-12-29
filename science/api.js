@@ -14,18 +14,21 @@ function saveJSON(name, data) {
 }
 
 /**
- * Gets all data for cans
- * @param {string} type beer | cider
+ * Hits DM API and saves JSON reponse to file
+ * @param {*} name name for output file and logging
+ * @param {*} department
+ * @param {*} subdepartment
  */
-function saveCans(type, department) {
+function saveCans(name, department, subdepartment) {
   const data = JSON.stringify({
-    department: type,
+    department: department,
     filters: [],
     pageNumber: 1,
     pageSize: 1000,
     sortType: "PriceAsc",
     Location: "ListerFacet",
-    PageUrl: `/${type}/all`
+    subDepartment: subdepartment
+    // PageUrl: `/${type}/all` // don't need
   });
   const options = {
     hostname: "api.danmurphys.com.au",
@@ -37,13 +40,13 @@ function saveCans(type, department) {
     }
   };
 
-  console.log(`Sending http request (${type})`);
+  console.log(`Sending http request (${name})`);
 
   const req = https
     .request(options, (res) => {
       let data = "";
 
-      console.log(`Response: ${res.statusCode} (${type})`);
+      console.log(`Response: ${res.statusCode} (${name})`);
 
       res.on("data", (chunk) => {
         data += chunk;
@@ -71,7 +74,7 @@ function saveCans(type, department) {
         });
 
         // console.log(cans);
-        saveJSON(type, cans);
+        saveJSON(name, cans);
       });
     })
     .on("error", (err) => {
@@ -84,14 +87,15 @@ function saveCans(type, department) {
 
 saveCans("beer", "beer");
 saveCans("cider", "cider");
+saveCans("premix", "spirits", "premix drinks");
 
-let s = {
-  department: "spirits",
-  subDepartment: "premix drinks",
-  filters: [],
-  pageNumber: 1,
-  pageSize: 24,
-  sortType: "Relevance",
-  Location: "ListerFacet",
-  PageUrl: "/spirits/premix-drinks"
-};
+// let s = {
+//   department: "spirits",
+//   subDepartment: "premix drinks",
+//   filters: [],
+//   pageNumber: 1,
+//   pageSize: 24,
+//   sortType: "Relevance",
+//   Location: "ListerFacet",
+//   PageUrl: "/spirits/premix-drinks"
+// };

@@ -1,4 +1,4 @@
-export type DrinkType = "beer" | "cider";
+export type DrinkType = "beer" | "cider" | "premix";
 
 export type PackType = "sixpack" | "single" | "case" | "promosixpack" | "promosingle" | "promocase";
 

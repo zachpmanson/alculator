@@ -30,6 +30,9 @@ export default function Filters() {
           <option key="cider" value="cider">
             Cider
           </option>
+          <option key="premix" value="premix">
+            Premix
+          </option>
         </select>
         <select
           name="pack"
