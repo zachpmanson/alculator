@@ -61,15 +61,31 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
     const newCurrentDrinks = allDrinks
       .filter((d) => !!d)
       // check either price exists
-      .filter((d) => !!d.prices[fullPackname] || !!d.prices[currentFilters.pack])
       .filter((d) => !!d.strength)
+      .filter((d) => !!d.prices[fullPackname] || !!d.prices[currentFilters.pack])
+      // remove cases without unit counts
+      .filter((d) => currentFilters.pack !== "case" || !!d.units.case)
+      // remove packs without unit counts
+      .filter((d) => currentFilters.pack !== "pack" || !!d.units.pack)
+      // Calculates full strength strength
+      .map((d) => {
+        let strength = d.strength;
+        if (currentFilters.pack === "case") {
+          strength = strength * d.units.case;
+        } else if (currentFilters.pack === "pack") {
+          strength = strength * d.units.pack;
+        }
+        return { ...d, strength: strength };
+      })
       // make new entry for particular price, choose lowest price
       .map((d) => {
         return { ...d, price: Math.max(d.prices[fullPackname], d.prices[currentFilters.pack]) };
       })
+      // add ratio column
       .map((d) => {
         return { ...d, ratio: d.strength / d.price };
       })
+      // filter on search query
       .filter((d) => d.name.toLocaleLowerCase().includes(currentFilters.search))
       .sort(sortFn);
 

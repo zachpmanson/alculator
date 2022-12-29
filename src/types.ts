@@ -6,6 +6,9 @@ export type Drink = {
   name: string;
   stockcode: string;
   strength: number;
+  units: {
+    [key in "case" | "pack"]: number;
+  };
   prices: {
     [key in PackType]: number;
   };

@@ -133,5 +133,15 @@ select {
 }
 
 .table-responsive {
-  overflow-x: auto;
+  /* overflow-x: auto; */
+}
+
+.results-list {
+  border-collapse: collapse;
+  position: relative;
+}
+
+.results-list th {
+  position: sticky;
+  top: 0; /* Don't forget this, required for the stickiness */
 }

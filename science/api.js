@@ -62,8 +62,13 @@ function saveCans(name, department, subdepartment) {
 
           let caseprice = +product.Prices.caseprice?.Value;
           let promocaseprice = +bundle.Products[0].Prices.caseprice?.AfterPromotion;
+          let caseIntsInMessage = product.Prices.caseprice?.Message?.match(/([0-9]+)/);
+          let caseunits = !!caseIntsInMessage ? +caseIntsInMessage[0] : 0;
+
           let packprice = 0;
           let promopackprice = 0;
+          let packunits = 0;
+
           let bottleprice = +product.Prices.inanysixprice?.Value;
           let promobottleprice = +product.Prices.inanysixprice?.AfterPromotion;
 
@@ -71,6 +76,9 @@ function saveCans(name, department, subdepartment) {
             if (product.Prices.singleprice?.PackType === "Pack") {
               packprice = +product.Prices.singleprice?.Value;
               promopackprice = +product.Prices.singleprice?.AfterPromotion;
+
+              packIntsInMessage = product.Prices.singleprice?.Message?.match(/([0-9]+)/);
+              packunits = !!packIntsInMessage ? +packIntsInMessage[0] : 0;
             } else if (product.Prices.singleprice?.PackType === "Bottle") {
               bottleprice = +product.Prices.singleprice?.Value;
               promobottleprice = +product.Prices.singleprice?.AfterPromotion;
@@ -80,10 +88,14 @@ function saveCans(name, department, subdepartment) {
           return {
             name: product.AdditionalDetails.find((r) => r.Name === "producttitle")?.Value,
             stockcode: product.Stockcode,
+            units: {
+              pack: packunits,
+              case: caseunits,
+            },
             prices: {
               // add packsize and casesize
-              pack: packprice,
               bottle: bottleprice,
+              pack: packprice,
               case: caseprice,
               promopack: promopackprice,
               promobottle: promobottleprice,
