@@ -27,6 +27,7 @@ export default function DrinkCardList() {
 
             <div className="flex badge-row">
               <div className="badge">${item.price}</div>
+              {(pack === "case" || pack === "pack") && <div className="badge">{item.units[pack]} units</div>}
               <div className="badge">{Math.round(10 * item.strength) / 10} standard drinks</div>
               <div className="badge">{Math.round(100 * item.ratio) / 100} SD/$</div>
             </div>
@@ -34,20 +35,7 @@ export default function DrinkCardList() {
         </div>
       </a>
     </div>
-
-    // <tr key={index} className="drink-row">
-    //   <td className="drink-name">
-    //   </td>
-    //   <td>{Math.round(100 * item.ratio) / 100}</td>
-    //   <td>{Math.round(10 * item.strength) / 10}</td>
-    //   <td>${item.price}</td>
-    //   {(pack === "case" || pack === "pack") && <td>{item.units[pack]}</td>}
-    // </tr>
   ));
-
-  // useEffect(() => {
-  //   fetchData(page);
-  // }, [page]);
 
   const onScroll = () => {
     const scrollTop = document.documentElement.scrollTop;
