@@ -13,7 +13,7 @@ export default function Filters() {
   return (
     <>
       <div className="filters col center">
-        <input type="search" name="search" placeholder="Search..." onChange={onSearchChange} />
+        <input type="search" name="search" className="searchbox" placeholder="Search..." onChange={onSearchChange} />
         <select
           name="drinks"
           id="drinks"

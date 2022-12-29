@@ -116,14 +116,18 @@ th {
   text-align: center;
 }
 
-.drink-name {
-  max-width: 50ch;
-}
-
 table {
   max-width: 100%;
 }
 
 select {
+  padding: 0.25rem 0.5rem;
+}
+
+.drink-name {
+  max-width: 50ch;
+}
+
+.searchbox {
   padding: 0.25rem 0.5rem;
 }
