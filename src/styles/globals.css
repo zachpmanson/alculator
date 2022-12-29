@@ -57,7 +57,7 @@
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -117,7 +117,7 @@ th {
 }
 
 table {
-  max-width: 100%;
+  max-width: 100vw;
 }
 
 select {
@@ -130,4 +130,8 @@ select {
 
 .searchbox {
   padding: 0.25rem 0.5rem;
+}
+
+.table-responsive {
+  overflow-x: auto;
 }

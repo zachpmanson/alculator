@@ -3,7 +3,7 @@ import { useGlobal } from "../contexts/Global/context";
 export default function ResultList() {
   const {
     currentFilters: { pack, includePromo },
-    currentDrinks
+    currentDrinks,
   } = useGlobal();
 
   const tableBody = currentDrinks.map((item, index) => (
@@ -22,17 +22,19 @@ export default function ResultList() {
       {tableBody.length === 0 ? (
         <p className="text-center">No results</p>
       ) : (
-        <table className="center">
-          <thead>
-            <tr>
-              <th>name</th>
-              <th>standard drinks</th>
-              <th>price</th>
-              <th>sd/$</th>
-            </tr>
-          </thead>
-          <tbody>{tableBody}</tbody>
-        </table>
+        <div className="table-responsive">
+          <table className="center">
+            <thead>
+              <tr>
+                <th>name</th>
+                <th>standard drinks</th>
+                <th>price</th>
+                <th>sd/$</th>
+              </tr>
+            </thead>
+            <tbody>{tableBody}</tbody>
+          </table>
+        </div>
       )}
     </>
   );
