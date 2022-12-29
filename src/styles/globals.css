@@ -43,18 +43,18 @@ body {
   line-height: 1.4em;
 }
 
-a {
+.results-list a {
   color: blue;
   text-decoration: underline;
   text-decoration-color: transparent;
   transition: all 0.1s ease-in;
 }
 
-a:hover {
+.results-list a:hover {
   text-decoration-color: blue;
 }
 
-a:active {
+.results-list a:active {
   color: darkblue;
   text-decoration-color: darkblue;
   transition: all 0s ease-in;
@@ -101,10 +101,6 @@ select {
   padding: 0.25rem 0.5rem;
 }
 
-.table-responsive {
-  /* overflow-x: auto; */
-}
-
 .results-list {
   border-collapse: collapse;
   position: relative;
@@ -113,4 +109,40 @@ select {
 .results-list th {
   position: sticky;
   top: 0; /* Don't forget this, required for the stickiness */
+}
+
+.card {
+  margin: 1rem auto;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  text-align: left;
+  border-radius: 0.5rem;
+  transition: all 0.1s ease-in;
+  display: block;
+}
+
+.card:hover {
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+}
+
+.card a {
+  color: black;
+  text-decoration: none;
+}
+
+.flex {
+  display: flex;
+}
+
+.badge-row {
+  height: 4rem;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.badge {
+}
+
+.fill-width {
+  width: 100%;
 }

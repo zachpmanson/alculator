@@ -13,6 +13,56 @@ function saveJSON(name, data) {
   });
 }
 
+function processBundle(bundle) {
+  const product = bundle.Products[0];
+  if (blacklist.includes(product.Stockcode)) return;
+
+  let caseprice = +product.Prices.caseprice?.Value;
+  let promocaseprice = +bundle.Products[0].Prices.caseprice?.AfterPromotion;
+  let caseIntsInMessage = product.Prices.caseprice?.Message?.match(/([0-9]+)/);
+  let caseunits = !!caseIntsInMessage ? +caseIntsInMessage[0] : 0;
+
+  let packprice = 0;
+  let promopackprice = 0;
+  let packunits = 0;
+
+  let bottleprice = +product.Prices.inanysixprice?.Value;
+  let promobottleprice = +product.Prices.inanysixprice?.AfterPromotion;
+
+  if (typeof product.Prices.singleprice?.PackType !== undefined) {
+    if (product.Prices.singleprice?.PackType === "Pack") {
+      packprice = +product.Prices.singleprice?.Value;
+      promopackprice = +product.Prices.singleprice?.AfterPromotion;
+
+      packIntsInMessage = product.Prices.singleprice?.Message?.match(/([0-9]+)/);
+      packunits = !!packIntsInMessage ? +packIntsInMessage[0] : 0;
+    } else if (product.Prices.singleprice?.PackType === "Bottle") {
+      bottleprice = +product.Prices.singleprice?.Value;
+      promobottleprice = +product.Prices.singleprice?.AfterPromotion;
+    }
+  }
+
+  return {
+    name: product.AdditionalDetails.find((r) => r.Name === "producttitle")?.Value,
+    stockcode: product.Stockcode,
+    units: {
+      pack: packunits,
+      case: caseunits,
+    },
+    prices: {
+      // add packsize and casesize
+      bottle: bottleprice,
+      pack: packprice,
+      case: caseprice,
+      promopack: promopackprice,
+      promobottle: promobottleprice,
+      promocase: promocaseprice,
+    },
+    strength: +product.AdditionalDetails.find((r) => r.Name === "standarddrinks")?.Value,
+    percentage: product.AdditionalDetails.find((r) => r.Name === "webalcoholpercentage")?.Value,
+  };
+}
+
 /**
  * Hits DM API and saves JSON reponse to file
  * @param {*} name name for output file and logging
@@ -59,55 +109,7 @@ function saveDrinks(name, department, subdepartment, pagecount = 1) {
 
         res.on("end", () => {
           let bundles = JSON.parse(data).Bundles;
-          let cans = bundles.map((bundle) => {
-            const product = bundle.Products[0];
-            if (blacklist.includes(product.Stockcode)) return;
-
-            let caseprice = +product.Prices.caseprice?.Value;
-            let promocaseprice = +bundle.Products[0].Prices.caseprice?.AfterPromotion;
-            let caseIntsInMessage = product.Prices.caseprice?.Message?.match(/([0-9]+)/);
-            let caseunits = !!caseIntsInMessage ? +caseIntsInMessage[0] : 0;
-
-            let packprice = 0;
-            let promopackprice = 0;
-            let packunits = 0;
-
-            let bottleprice = +product.Prices.inanysixprice?.Value;
-            let promobottleprice = +product.Prices.inanysixprice?.AfterPromotion;
-
-            if (typeof product.Prices.singleprice?.PackType !== undefined) {
-              if (product.Prices.singleprice?.PackType === "Pack") {
-                packprice = +product.Prices.singleprice?.Value;
-                promopackprice = +product.Prices.singleprice?.AfterPromotion;
-
-                packIntsInMessage = product.Prices.singleprice?.Message?.match(/([0-9]+)/);
-                packunits = !!packIntsInMessage ? +packIntsInMessage[0] : 0;
-              } else if (product.Prices.singleprice?.PackType === "Bottle") {
-                bottleprice = +product.Prices.singleprice?.Value;
-                promobottleprice = +product.Prices.singleprice?.AfterPromotion;
-              }
-            }
-
-            return {
-              name: product.AdditionalDetails.find((r) => r.Name === "producttitle")?.Value,
-              stockcode: product.Stockcode,
-              units: {
-                pack: packunits,
-                case: caseunits,
-              },
-              prices: {
-                // add packsize and casesize
-                bottle: bottleprice,
-                pack: packprice,
-                case: caseprice,
-                promopack: promopackprice,
-                promobottle: promobottleprice,
-                promocase: promocaseprice,
-              },
-              strength: +product.AdditionalDetails.find((r) => r.Name === "standarddrinks")?.Value,
-              percentage: product.AdditionalDetails.find((r) => r.Name === "webalcoholpercentage")?.Value,
-            };
-          });
+          let cans = bundles.map(processBundle);
 
           allDrinks[name].push(...cans);
           allQueriesStatus[queryID] = true;
