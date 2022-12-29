@@ -13,7 +13,7 @@ export type GlobalContextProps = {
 const GlobalContext = createContext<GlobalContextProps>({
   currentFilters: {
     type: "beer",
-    pack: "sixpack",
+    pack: "bottle",
     includePromo: false,
     search: "",
     sortBy: "ratio",
