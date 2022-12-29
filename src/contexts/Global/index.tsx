@@ -21,6 +21,7 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
     [setCurrentFilters, currentFilters]
   );
 
+  // Updates the filter list
   useEffect(() => {
     console.log("Filter updated");
     fetch(`/api/drinks/${currentFilters.type}`)

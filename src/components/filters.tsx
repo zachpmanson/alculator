@@ -24,8 +24,12 @@ export default function Filters() {
             })
           }
         >
-          <option key="beer">Beer</option>
-          <option key="cider">Cider</option>
+          <option key="beer" value="beer">
+            Beer
+          </option>
+          <option key="cider" value="cider">
+            Cider
+          </option>
         </select>
         <select
           name="pack"
