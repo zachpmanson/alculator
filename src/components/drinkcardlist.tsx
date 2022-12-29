@@ -9,10 +9,9 @@ export default function DrinkCardList() {
     currentDrinks,
   } = useGlobal();
 
-  const [visibleDrinks, setVisibleDrinks] = useState<Drink[]>([]);
-  const [page, setPage] = useState(20);
+  const [lastDrinkIndex, setLastDrinkIndex] = useState(20);
 
-  const cards = currentDrinks.slice(0, page).map((item, index) => (
+  const cards = currentDrinks.slice(0, lastDrinkIndex).map((item, index) => (
     <div key={index} className="card center">
       <a href={`https://www.danmurphys.com.au/product/${item.stockcode}`}>
         <div className="flex center-aligned">
@@ -37,26 +36,31 @@ export default function DrinkCardList() {
     </div>
   ));
 
-  const onScroll = () => {
-    const scrollTop = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight;
-    const clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight >= scrollHeight) {
-      setTimeout(() => {
-        setPage(page + 10);
-      }, 500);
-    }
-  };
-
   useEffect(() => {
+    const onScroll = () => {
+      const scrollTop = document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+      if (scrollTop + clientHeight >= scrollHeight) {
+        setTimeout(() => {
+          setLastDrinkIndex(lastDrinkIndex + 10);
+        }, 500);
+      }
+    };
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, [cards]);
+  }, [cards, setLastDrinkIndex, lastDrinkIndex]);
 
   return (
     <>
       {cards.length === 0 ? <p className="text-center">No results</p> : <div className="col center">{cards}</div>}
-      {cards.length === currentDrinks.length || <p className="text-center">Loading more...</p>}
+      {cards.length === currentDrinks.length || (
+        <div className="col center load-button-container">
+          <button className="load-button" onClick={() => setLastDrinkIndex(lastDrinkIndex + 20)}>
+            Load more
+          </button>
+        </div>
+      )}
     </>
   );
 }

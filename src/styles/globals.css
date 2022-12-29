@@ -153,3 +153,11 @@ select {
 .fill-width {
   width: 100%;
 }
+
+.load-button-container {
+  text-align: center;
+}
+
+.load-button {
+  padding: 0.5rem;
+}
