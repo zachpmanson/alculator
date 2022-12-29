@@ -17,7 +17,7 @@ function saveJSON(name, data) {
  * Gets all data for cans
  * @param {string} type beer | cider
  */
-function saveCans(type) {
+function saveCans(type, department) {
   const data = JSON.stringify({
     department: type,
     filters: [],
@@ -25,7 +25,7 @@ function saveCans(type) {
     pageSize: 1000,
     sortType: "PriceAsc",
     Location: "ListerFacet",
-    PageUrl: `/${type}/all`,
+    PageUrl: `/${type}/all`
   });
   const options = {
     hostname: "api.danmurphys.com.au",
@@ -33,8 +33,8 @@ function saveCans(type) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Content-Length": data.length,
-    },
+      "Content-Length": data.length
+    }
   };
 
   console.log(`Sending http request (${type})`);
@@ -55,26 +55,18 @@ function saveCans(type) {
           if (blacklist.includes(bundle.Products[0].Stockcode)) return;
 
           return {
-            name: bundle.Products[0].AdditionalDetails.find(
-              (r) => r.Name === "producttitle"
-            )?.Value,
+            name: bundle.Products[0].AdditionalDetails.find((r) => r.Name === "producttitle")?.Value,
             stockcode: bundle.Products[0].Stockcode,
             prices: {
               single: +bundle.Products[0].Prices.singleprice?.Value,
               sixpack: +bundle.Products[0].Prices.inanysixprice?.Value,
               case: +bundle.Products[0].Prices.caseprice?.Value,
-              promosingle:
-                +bundle.Products[0].Prices.singleprice?.AfterPromotion,
-              promosixpack:
-                +bundle.Products[0].Prices.inanysixprice?.AfterPromotion,
-              promocase: +bundle.Products[0].Prices.caseprice?.AfterPromotion,
+              promosingle: +bundle.Products[0].Prices.singleprice?.AfterPromotion,
+              promosixpack: +bundle.Products[0].Prices.inanysixprice?.AfterPromotion,
+              promocase: +bundle.Products[0].Prices.caseprice?.AfterPromotion
             },
-            strength: +bundle.Products[0].AdditionalDetails.find(
-              (r) => r.Name === "standarddrinks"
-            )?.Value,
-            percentage: bundle.Products[0].AdditionalDetails.find(
-              (r) => r.Name === "webalcoholpercentage"
-            )?.Value,
+            strength: +bundle.Products[0].AdditionalDetails.find((r) => r.Name === "standarddrinks")?.Value,
+            percentage: bundle.Products[0].AdditionalDetails.find((r) => r.Name === "webalcoholpercentage")?.Value
           };
         });
 
@@ -90,5 +82,16 @@ function saveCans(type) {
   req.end();
 }
 
-saveCans("beer");
-saveCans("cider");
+saveCans("beer", "beer");
+saveCans("cider", "cider");
+
+let s = {
+  department: "spirits",
+  subDepartment: "premix drinks",
+  filters: [],
+  pageNumber: 1,
+  pageSize: 24,
+  sortType: "Relevance",
+  Location: "ListerFacet",
+  PageUrl: "/spirits/premix-drinks"
+};
