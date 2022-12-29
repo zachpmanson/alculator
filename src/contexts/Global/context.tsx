@@ -1,10 +1,4 @@
-import {
-  ChangeEvent,
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-} from "react";
+import { ChangeEvent, createContext, Dispatch, SetStateAction, useContext } from "react";
 import { Drink, FilterOptions } from "../../types";
 
 export type GlobalContextProps = {
@@ -22,6 +16,8 @@ const GlobalContext = createContext<GlobalContextProps>({
     pack: "sixpack",
     includePromo: false,
     search: "",
+    sortBy: "ratio",
+    order: "desc",
   },
   setCurrentFilters: () => undefined,
   currentDrinks: [],

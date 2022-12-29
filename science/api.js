@@ -1,11 +1,13 @@
 const https = require("https");
 const fs = require("fs");
 
+const nresults = +process.argv[2] || 1000;
+
 // for Dan Murphy's fuck ups, uses product stock code
-const blacklist = ["808932"];
+const blacklist = JSON.parse(fs.readFileSync("blacklist.json"));
 
 function saveJSON(name, data) {
-  console.log(`Saving file ${name}.json`);
+  console.log(`Saving ${data.length} items to ${name}.json`);
   fs.writeFile(`${name}.json`, JSON.stringify(data), (err) => {
     if (err) {
       console.log(err);
@@ -24,10 +26,10 @@ function saveCans(name, department, subdepartment) {
     department: department,
     filters: [],
     pageNumber: 1,
-    pageSize: 1000,
+    pageSize: nresults,
     sortType: "PriceAsc",
     Location: "ListerFacet",
-    subDepartment: subdepartment
+    subDepartment: subdepartment,
     // PageUrl: `/${type}/all` // don't need
   });
   const options = {
@@ -36,8 +38,8 @@ function saveCans(name, department, subdepartment) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Content-Length": data.length
-    }
+      "Content-Length": data.length,
+    },
   };
 
   console.log(`Sending http request (${name})`);
@@ -55,21 +57,40 @@ function saveCans(name, department, subdepartment) {
       res.on("end", () => {
         let bundles = JSON.parse(data).Bundles;
         let cans = bundles.map((bundle) => {
-          if (blacklist.includes(bundle.Products[0].Stockcode)) return;
+          const product = bundle.Products[0];
+          if (blacklist.includes(product.Stockcode)) return;
+
+          let caseprice = +product.Prices.caseprice?.Value;
+          let promocaseprice = +bundle.Products[0].Prices.caseprice?.AfterPromotion;
+          let packprice = 0;
+          let promopackprice = 0;
+          let bottleprice = +product.Prices.inanysixprice?.Value;
+          let promobottleprice = +product.Prices.inanysixprice?.AfterPromotion;
+
+          if (typeof product.Prices.singleprice?.PackType !== undefined) {
+            if (product.Prices.singleprice?.PackType === "Pack") {
+              packprice = +product.Prices.singleprice?.Value;
+              promopackprice = +product.Prices.singleprice?.AfterPromotion;
+            } else if (product.Prices.singleprice?.PackType === "Bottle") {
+              bottleprice = +product.Prices.singleprice?.Value;
+              promobottleprice = +product.Prices.singleprice?.AfterPromotion;
+            }
+          }
 
           return {
-            name: bundle.Products[0].AdditionalDetails.find((r) => r.Name === "producttitle")?.Value,
-            stockcode: bundle.Products[0].Stockcode,
+            name: product.AdditionalDetails.find((r) => r.Name === "producttitle")?.Value,
+            stockcode: product.Stockcode,
             prices: {
-              single: +bundle.Products[0].Prices.singleprice?.Value,
-              sixpack: +bundle.Products[0].Prices.inanysixprice?.Value,
-              case: +bundle.Products[0].Prices.caseprice?.Value,
-              promosingle: +bundle.Products[0].Prices.singleprice?.AfterPromotion,
-              promosixpack: +bundle.Products[0].Prices.inanysixprice?.AfterPromotion,
-              promocase: +bundle.Products[0].Prices.caseprice?.AfterPromotion
+              // add packsize and casesize
+              pack: packprice,
+              bottle: bottleprice,
+              case: caseprice,
+              promopack: promopackprice,
+              promobottle: promobottleprice,
+              promocase: promocaseprice,
             },
-            strength: +bundle.Products[0].AdditionalDetails.find((r) => r.Name === "standarddrinks")?.Value,
-            percentage: bundle.Products[0].AdditionalDetails.find((r) => r.Name === "webalcoholpercentage")?.Value
+            strength: +product.AdditionalDetails.find((r) => r.Name === "standarddrinks")?.Value,
+            percentage: product.AdditionalDetails.find((r) => r.Name === "webalcoholpercentage")?.Value,
           };
         });
 
@@ -88,14 +109,4 @@ function saveCans(name, department, subdepartment) {
 saveCans("beer", "beer");
 saveCans("cider", "cider");
 saveCans("premix", "spirits", "premix drinks");
-
-// let s = {
-//   department: "spirits",
-//   subDepartment: "premix drinks",
-//   filters: [],
-//   pageNumber: 1,
-//   pageSize: 24,
-//   sortType: "Relevance",
-//   Location: "ListerFacet",
-//   PageUrl: "/spirits/premix-drinks"
-// };
+saveCans("spirit", "spirits");

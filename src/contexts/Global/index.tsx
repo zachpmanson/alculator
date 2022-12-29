@@ -1,16 +1,24 @@
 import { ChangeEvent, ReactNode, useCallback, useEffect, useMemo, useState } from "react";
-import { Drink, FilterOptions, PackType } from "../../types";
+import { Drink, DrinkType, FilterOptions, PackType } from "../../types";
 import { GlobalContextProps, GlobalContextProvider } from "./context";
 
 const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const [allDrinks, setAllDrinks] = useState<Drink[]>([]);
   const [currentDrinks, setCurrentDrinks] = useState<Drink[]>([]);
+  const [cachedDrinkLists, setCachedDrinkLists] = useState<{ [key in DrinkType]: Drink[] }>({
+    beer: [],
+    cider: [],
+    premix: [],
+    spirit: [],
+  });
 
   const [currentFilters, setCurrentFilters] = useState<FilterOptions>({
     type: "beer",
-    pack: "sixpack",
+    pack: "bottle",
     includePromo: false,
-    search: ""
+    search: "",
+    sortBy: "ratio",
+    order: "desc",
   });
 
   const onSearchChange = useCallback(
@@ -21,20 +29,35 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
     [setCurrentFilters, currentFilters]
   );
 
-  // Updates the filter list
+  // Updates the full drink list
   useEffect(() => {
-    console.log("Filter updated");
-    fetch(`/api/drinks/${currentFilters.type}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAllDrinks(JSON.parse(data));
-      });
-  }, [currentFilters.type]);
+    if (cachedDrinkLists[currentFilters.type].length === 0) {
+      fetch(`/api/drinks/${currentFilters.type}`)
+        .then((response) => response.json())
+        .then((data) => {
+          const drinkList = JSON.parse(data);
+          let newCachedDrinkList = cachedDrinkLists;
+          newCachedDrinkList[currentFilters.type] = drinkList;
 
+          setCachedDrinkLists(newCachedDrinkList);
+          setAllDrinks(drinkList);
+        });
+    } else {
+      setAllDrinks(cachedDrinkLists[currentFilters.type]);
+    }
+  }, [currentFilters.type, cachedDrinkLists]);
+
+  // Recalculates filtering
   useEffect(() => {
     const fullPackname = currentFilters.includePromo
       ? (("promo" + currentFilters.pack) as PackType)
       : currentFilters.pack;
+
+    const sortBy = currentFilters.sortBy;
+
+    // invert ordering if desc is selected
+    const sortFn = (a: Drink, b: Drink) => (a[sortBy] - b[sortBy]) * (currentFilters.order === "asc" ? 1 : -1);
+    console.log(allDrinks);
     const newCurrentDrinks = allDrinks
       .filter((d) => !!d)
       // check either price exists
@@ -48,8 +71,7 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
         return { ...d, ratio: d.strength / d.price };
       })
       .filter((d) => d.name.toLocaleLowerCase().includes(currentFilters.search))
-      // sort on ratio
-      .sort((a, b) => b.ratio - a.ratio);
+      .sort(sortFn);
 
     setCurrentDrinks(newCurrentDrinks);
   }, [currentFilters, allDrinks]);
@@ -61,7 +83,7 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
       setCurrentDrinks: setCurrentDrinks,
       currentFilters: currentFilters,
       setCurrentFilters: setCurrentFilters,
-      onSearchChange: onSearchChange
+      onSearchChange: onSearchChange,
     }),
     [currentDrinks, currentFilters, onSearchChange]
   );

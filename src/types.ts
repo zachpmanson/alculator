@@ -1,6 +1,6 @@
-export type DrinkType = "beer" | "cider" | "premix";
+export type DrinkType = "beer" | "cider" | "premix" | "spirit";
 
-export type PackType = "sixpack" | "single" | "case" | "promosixpack" | "promosingle" | "promocase";
+export type PackType = "bottle" | "pack" | "case" | "promobottle" | "promopack" | "promocase";
 
 export type Drink = {
   name: string;
@@ -9,14 +9,20 @@ export type Drink = {
   prices: {
     [key in PackType]: number;
   };
-  price?: number;
+  price: number;
   ratio: number;
   percentage: string;
 };
+
+export type SortByOption = "ratio" | "price" | "strength";
+
+export type Ordering = "asc" | "desc";
 
 export type FilterOptions = {
   type: DrinkType;
   pack: PackType;
   includePromo: boolean;
   search: string;
+  sortBy: SortByOption;
+  order: Ordering;
 };

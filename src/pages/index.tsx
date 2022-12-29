@@ -1,8 +1,6 @@
 import Head from "next/head";
 import Filters from "../components/filters";
 import ResultList from "../components/resultlist";
-import { useGlobal } from "../contexts/Global/context";
-import { DrinkType, PackType } from "../types";
 
 export default function Home() {
   return (
