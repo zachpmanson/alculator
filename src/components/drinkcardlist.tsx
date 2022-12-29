@@ -15,7 +15,7 @@ export default function DrinkCardList() {
   const cards = currentDrinks.slice(0, page).map((item, index) => (
     <div key={index} className="card center">
       <a href={`https://www.danmurphys.com.au/product/${item.stockcode}`}>
-        <div className="flex">
+        <div className="flex center-aligned">
           <Image
             alt="Image of drink"
             height="100"

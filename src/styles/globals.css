@@ -134,13 +134,20 @@ select {
   display: flex;
 }
 
+.center-aligned {
+  align-items: center;
+}
+
 .badge-row {
-  height: 4rem;
+  min-height: 4rem;
   align-items: center;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .badge {
+  display: block;
+  margin: 0.5rem;
 }
 
 .fill-width {
