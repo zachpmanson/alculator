@@ -1,7 +1,7 @@
 const https = require("https");
 const fs = require("fs");
 
-const nresults = +process.argv[2] || 1000;
+const nresults = +process.argv[2] || 500;
 
 // for Dan Murphy's fuck ups, uses product stock code
 const blacklist = JSON.parse(fs.readFileSync("blacklist.json"));
@@ -144,9 +144,9 @@ let allDrinks = {
 
 let allQueriesStatus = {};
 
-saveDrinks("beer", "beer", undefined, 2);
-saveDrinks("cider", "cider");
-saveDrinks("premix", "spirits", "premix drinks");
-saveDrinks("spirits", "spirits", undefined, 3);
-saveDrinks("redwine", "red wine", undefined, 3);
-saveDrinks("whitewine", "white wine", undefined, 3);
+saveDrinks("beer", "beer", undefined, 4);
+saveDrinks("cider", "cider", undefined, 2);
+saveDrinks("premix", "spirits", "premix drinks", 2);
+saveDrinks("spirits", "spirits", undefined, 6);
+saveDrinks("redwine", "red wine", undefined, 6);
+saveDrinks("whitewine", "white wine", undefined, 6);
