@@ -2,7 +2,7 @@ name: manual-pull-DM-catalogue
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
-  Manual Pull DM Catalogue:
+  Manual-Pull-DM-Catalogue:
     runs-on: ubuntu-latest
     steps:
       - run: echo Starting...
