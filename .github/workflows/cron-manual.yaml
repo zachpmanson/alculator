@@ -6,6 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo Starting...
+      - run: ls
+      - run: ls ..
       - name: Gets latest DM catalogue
         run: node api.js
         working-directory: science
