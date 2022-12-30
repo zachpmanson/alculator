@@ -8,4 +8,4 @@ jobs:
       - run: echo Starting...
       - name: Gets latest DM catalogue
         run: node api.js
-        working-directory: ./science
+        working-directory: science
