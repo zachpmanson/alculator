@@ -14,9 +14,7 @@
 name: manual-pull-DM-catalogue
 
 on:
-  push:
-    branches:
-      - master
+  [push]
   # schedule:
   #   - cron: "0 */1 * * *"
 
