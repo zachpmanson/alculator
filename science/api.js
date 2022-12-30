@@ -137,7 +137,9 @@ let allDrinks = {
   beer: [],
   cider: [],
   premix: [],
-  spirit: [],
+  spirits: [],
+  redwine: [],
+  whitewine: [],
 };
 
 let allQueriesStatus = {};
@@ -145,4 +147,6 @@ let allQueriesStatus = {};
 saveDrinks("beer", "beer", undefined, 2);
 saveDrinks("cider", "cider");
 saveDrinks("premix", "spirits", "premix drinks");
-saveDrinks("spirit", "spirits", undefined, 3);
+saveDrinks("spirits", "spirits", undefined, 3);
+saveDrinks("redwine", "red wine", undefined, 2);
+saveDrinks("whitewine", "white wine", undefined, 2);

@@ -33,8 +33,14 @@ export default function Filters() {
           <option key="premix" value="premix">
             Premix
           </option>
-          <option key="spirit" value="spirit">
-            Spirit
+          <option key="spirits" value="spirits">
+            Spirits
+          </option>
+          <option key="redwine" value="redwine">
+            Red Wine
+          </option>
+          <option key="whitewine" value="whitewine">
+            White Wine
           </option>
         </select>
         <select

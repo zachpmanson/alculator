@@ -130,6 +130,10 @@ select {
   text-decoration: none;
 }
 
+.card img {
+  margin-right: 1rem;
+}
+
 .flex {
   display: flex;
 }

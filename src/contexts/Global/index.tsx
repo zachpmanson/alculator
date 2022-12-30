@@ -9,7 +9,9 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
     beer: [],
     cider: [],
     premix: [],
-    spirit: [],
+    spirits: [],
+    redwine: [],
+    whitewine: [],
   });
 
   const [currentFilters, setCurrentFilters] = useState<FilterOptions>({

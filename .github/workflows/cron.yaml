@@ -1,0 +1,11 @@
+name: pull-DM-catalogue
+on:
+  schedule:
+    - cron: "0 1 * * *"
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gets latest DM catalogue
+        run: node api.js
+        working-directory: ./science
