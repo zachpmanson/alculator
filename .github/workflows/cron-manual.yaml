@@ -1,13 +1,44 @@
+# name: manual-pull-DM-catalogue
+# run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+# on: [push]
+# env:
+#   REPO_DIR: alculator
+# jobs:
+#   Manual-Pull-DM-Catalogue:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Gets latest DM catalogue
+#         run: node api.js
+#         working-directory: ${{ REPO_DIR }}/science
+
 name: manual-pull-DM-catalogue
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+
+on:
+  push:
+    branches:
+      - master
+  # schedule:
+  #   - cron: "0 */1 * * *"
+
 env:
   REPO_DIR: alculator
+
 jobs:
-  Manual-Pull-DM-Catalogue:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: Starting...
+      - name: 🍽️ Get working copy
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 1
       - name: Gets latest DM catalogue
         run: node api.js
         working-directory: ${{ REPO_DIR }}/science
+      - name: 🚀 Commit and push if it changed
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git add -A
+          timestamp=$(date -u)
+          git commit -m "Update data: ${timestamp}" || exit 0
+          git push
