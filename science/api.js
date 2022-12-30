@@ -148,5 +148,5 @@ saveDrinks("beer", "beer", undefined, 2);
 saveDrinks("cider", "cider");
 saveDrinks("premix", "spirits", "premix drinks");
 saveDrinks("spirits", "spirits", undefined, 3);
-saveDrinks("redwine", "red wine", undefined, 2);
-saveDrinks("whitewine", "white wine", undefined, 2);
+saveDrinks("redwine", "red wine", undefined, 3);
+saveDrinks("whitewine", "white wine", undefined, 3);
