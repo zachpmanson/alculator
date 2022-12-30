@@ -5,7 +5,7 @@ export type PackType = "bottle" | "pack" | "case" | "promobottle" | "promopack" 
 export type Drink = {
   name: string;
   stockcode: string;
-  strength: number;
+  standardDrinks: number;
   units: {
     [key in "case" | "pack"]: number;
   };
@@ -17,7 +17,7 @@ export type Drink = {
   percentage: string;
 };
 
-export type SortByOption = "ratio" | "price" | "strength";
+export type SortByOption = "ratio" | "price" | "standardDrinks";
 
 export type Ordering = "asc" | "desc";
 

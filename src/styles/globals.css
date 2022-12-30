@@ -69,8 +69,11 @@ th {
   text-transform: uppercase;
 }
 
-.filters * {
-  margin: 1rem 0.5rem;
+.filters {
+  padding: 1rem;
+  flex-wrap: wrap;
+  align-items: stretch;
+  align-content: stretch;
 }
 
 .col {
@@ -93,12 +96,17 @@ select {
   padding: 0.25rem 0.5rem;
 }
 
+input {
+  margin: 0.5rem;
+}
+
 .drink-name {
   max-width: 50ch;
 }
 
 .searchbox {
   padding: 0.25rem 0.5rem;
+  margin: 1rem auto;
 }
 
 .results-list {
@@ -175,4 +183,20 @@ select {
 
 .load-button {
   padding: 0.5rem;
+}
+
+.fill {
+  width: 100%;
+}
+
+.table {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 1rem;
+  grid-gap: 1rem;
+}
+
+.vert-margin {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }

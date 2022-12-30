@@ -58,7 +58,7 @@ function processBundle(bundle) {
       promobottle: promobottleprice,
       promocase: promocaseprice,
     },
-    strength: +product.AdditionalDetails.find((r) => r.Name === "standarddrinks")?.Value,
+    standardDrinks: +product.AdditionalDetails.find((r) => r.Name === "standarddrinks")?.Value,
     percentage: product.AdditionalDetails.find((r) => r.Name === "webalcoholpercentage")?.Value,
   };
 }

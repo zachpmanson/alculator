@@ -1,14 +1,9 @@
-import { useGlobal } from "../contexts/Global/context";
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Drink } from "../types";
+import { useGlobal } from "../contexts/Global/context";
 import DrinkCard from "./drinkcard";
 
 export default function DrinkCardList() {
-  const {
-    currentFilters: { pack },
-    currentDrinks,
-  } = useGlobal();
+  const { currentDrinks } = useGlobal();
 
   const [lastDrinkIndex, setLastDrinkIndex] = useState(20);
 

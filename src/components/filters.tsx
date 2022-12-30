@@ -12,74 +12,72 @@ export default function Filters() {
 
   return (
     <>
-      <div className="filters col center">
-        <input type="search" name="search" className="searchbox" placeholder="Search..." onChange={onSearchChange} />
-        <select
-          name="drinks"
-          id="drinks"
-          onChange={(e) =>
-            setCurrentFilters({
-              ...currentFilters,
-              type: e.target.value as DrinkType,
-            })
-          }
-        >
-          <option key="beer" value="beer">
-            Beer
-          </option>
-          <option key="cider" value="cider">
-            Cider
-          </option>
-          <option key="premix" value="premix">
-            Premix
-          </option>
-          <option key="spirits" value="spirits">
-            Spirits
-          </option>
-          <option key="redwine" value="redwine">
-            Red Wine
-          </option>
-          <option key="whitewine" value="whitewine">
-            White Wine
-          </option>
-        </select>
-        <select
-          name="pack"
-          id="pack"
-          onChange={(e) =>
-            setCurrentFilters({
-              ...currentFilters,
-              pack: e.target.value as PackType,
-            })
-          }
-        >
-          <option key="bottle" value="bottle">
-            Bottle
-          </option>
-          <option key="pack" value="pack">
-            Pack
-          </option>
-          <option key="case" value="case">
-            Case
-          </option>
-        </select>
-        <label>
+      <div className="col center">
+        <div>
           <input
-            type="checkbox"
-            defaultChecked={initPromo}
-            onChange={() =>
+            type="search"
+            name="search"
+            className="searchbox fill"
+            placeholder="Search..."
+            onChange={onSearchChange}
+          />
+        </div>
+        <p>Drink:</p>
+
+        <div className="table">
+          {/* <div className="flex filters"> */}
+          <select
+            name="drinks"
+            id="drinks"
+            onChange={(e) =>
               setCurrentFilters({
                 ...currentFilters,
-                includePromo: !includePromo,
+                type: e.target.value as DrinkType,
               })
             }
-          />
-          Include promotions
-        </label>
-      </div>
-      <div className="filters col center">
-        <label>
-          Sort by:
+          >
+            <option key="beer" value="beer">
+              Beer
+            </option>
+            <option key="cider" value="cider">
+              Cider
+            </option>
+            <option key="premix" value="premix">
+              Premix
+            </option>
+            <option key="spirits" value="spirits">
+              Spirits
+            </option>
+            <option key="redwine" value="redwine">
+              Red Wine
+            </option>
+            <option key="whitewine" value="whitewine">
+              White Wine
+            </option>
+          </select>
+          <select
+            name="pack"
+            id="pack"
+            onChange={(e) =>
+              setCurrentFilters({
+                ...currentFilters,
+                pack: e.target.value as PackType,
+              })
+            }
+          >
+            <option key="bottle" value="bottle">
+              Bottle
+            </option>
+            <option key="pack" value="pack">
+              Pack
+            </option>
+            <option key="case" value="case">
+              Case
+            </option>
+          </select>
+        </div>
+        <p>Sort by:</p>
+        <div className="table">
           <select
             name="sortby"
             id="sortby"
@@ -91,13 +89,13 @@ export default function Filters() {
             }
           >
             <option key="ratio" value="ratio">
-              SD/$
+              Price per Drink
             </option>
             <option key="price" value="price">
               Price
             </option>
-            <option key="strength" value="strength">
-              Strength
+            <option key="standardDrinks" value="standardDrinks">
+              Standard Drinks
             </option>
           </select>
           <select
@@ -110,14 +108,32 @@ export default function Filters() {
               })
             }
           >
-            <option key="desc" value="desc">
-              High to low
-            </option>
             <option key="asc" value="asc">
               Low to high
             </option>
+            <option key="desc" value="desc">
+              High to low
+            </option>
           </select>
-        </label>
+        </div>
+        <div className="vert-margin">
+          <details>
+            <summary>Show all filters</summary>
+            <label>
+              <input
+                type="checkbox"
+                defaultChecked={initPromo}
+                onChange={() =>
+                  setCurrentFilters({
+                    ...currentFilters,
+                    includePromo: !includePromo,
+                  })
+                }
+              />
+              Include promotions
+            </label>
+          </details>
+        </div>
       </div>
     </>
   );

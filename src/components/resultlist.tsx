@@ -11,10 +11,10 @@ export default function ResultList() {
       <td className="drink-name">
         <a href={`https://www.danmurphys.com.au/product/${item.stockcode}`}>{item.name}</a>
       </td>
-      <td>{Math.round(100 * item.ratio) / 100}</td>
-      <td>{Math.round(10 * item.strength) / 10}</td>
       <td>${item.price}</td>
       {(pack === "case" || pack === "pack") && <td>{item.units[pack]}</td>}
+      <td>{Math.round(10 * item.standardDrinks) / 10}</td>
+      <td>{Math.round(100 * item.ratio) / 100}</td>
     </tr>
   ));
 
@@ -28,10 +28,10 @@ export default function ResultList() {
             <thead>
               <tr>
                 <th>name</th>
-                <th>sd/$</th>
-                <th>standard drinks</th>
                 <th>price</th>
                 {pack !== "bottle" && <th>units</th>}
+                <th>standard drinks</th>
+                <th>Price per Drink</th>
               </tr>
             </thead>
             <tbody>{tableBody}</tbody>

@@ -17,7 +17,7 @@ const GlobalContext = createContext<GlobalContextProps>({
     includePromo: false,
     search: "",
     sortBy: "ratio",
-    order: "desc",
+    order: "asc",
   },
   setCurrentFilters: () => undefined,
   currentDrinks: [],

@@ -37,11 +37,11 @@ export default function DrinkCard({ item }: DrinkCardProps) {
               )}
               <div className="badge">
                 <div className="badge-label">Standard Drinks</div>
-                <div className="badge-number">{Math.round(10 * item.strength) / 10}</div>
+                <div className="badge-number">{Math.round(10 * item.standardDrinks) / 10}</div>
               </div>
               <div className="badge">
-                <div className="badge-label">SD/$</div>
-                <div className="badge-number">{Math.round(100 * item.ratio) / 100}</div>
+                <div className="badge-label">Price per Drink</div>
+                <div className="badge-number">${Math.round(100 * item.ratio) / 100}</div>
               </div>
             </div>
           </div>

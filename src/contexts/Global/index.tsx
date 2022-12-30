@@ -20,7 +20,7 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
     includePromo: false,
     search: "",
     sortBy: "ratio",
-    order: "desc",
+    order: "asc",
   });
 
   const onSearchChange = useCallback(
@@ -63,21 +63,21 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
     const newCurrentDrinks = allDrinks
       .filter((d) => !!d)
       // check either price exists
-      .filter((d) => !!d.strength)
+      .filter((d) => !!d.standardDrinks)
       .filter((d) => !!d.prices[fullPackname] || !!d.prices[currentFilters.pack])
       // remove cases without unit counts
       .filter((d) => currentFilters.pack !== "case" || !!d.units.case)
       // remove packs without unit counts
       .filter((d) => currentFilters.pack !== "pack" || !!d.units.pack)
-      // Calculates full strength strength
+      // Calculates full standardDrinks standardDrinks
       .map((d) => {
-        let strength = d.strength;
+        let standardDrinks = d.standardDrinks;
         if (currentFilters.pack === "case") {
-          strength = strength * d.units.case;
+          standardDrinks = standardDrinks * d.units.case;
         } else if (currentFilters.pack === "pack") {
-          strength = strength * d.units.pack;
+          standardDrinks = standardDrinks * d.units.pack;
         }
-        return { ...d, strength: strength };
+        return { ...d, standardDrinks: standardDrinks };
       })
       // make new entry for particular price, choose lowest price
       .map((d) => {
@@ -85,7 +85,7 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
       })
       // add ratio column
       .map((d) => {
-        return { ...d, ratio: d.strength / d.price };
+        return { ...d, ratio: d.price / d.standardDrinks };
       })
       // filter on search query
       .filter((d) => d.name.toLocaleLowerCase().includes(currentFilters.search))
