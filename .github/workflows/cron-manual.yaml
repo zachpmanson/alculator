@@ -1,3 +1,6 @@
+env:
+  REPO_DIR: alculator
+
 name: manual-pull-DM-catalogue
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
@@ -5,10 +8,7 @@ jobs:
   Manual-Pull-DM-Catalogue:
     runs-on: ubuntu-latest
     steps:
-      - run: echo Starting...
-      - run: ls ../..
-      - run: ls ..
-      - run: ls
+      - run: Starting...
       - name: Gets latest DM catalogue
         run: node api.js
-        working-directory: science
+        working-directory: ${{ REPO_DIR }}/science
