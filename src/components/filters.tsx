@@ -2,13 +2,8 @@ import { useGlobal } from "../contexts/Global/context";
 import { DrinkType, Ordering, PackType, SortByOption } from "../types";
 
 export default function Filters() {
-  const {
-    currentFilters,
-    currentFilters: { includePromo },
-    setCurrentFilters,
-    onSearchChange,
-  } = useGlobal();
-  const initPromo = includePromo;
+  const { currentFilters, setCurrentFilters, onSearchChange } = useGlobal();
+  const initPromo = currentFilters.includePromo;
 
   return (
     <>
@@ -25,10 +20,10 @@ export default function Filters() {
         <p>Drink:</p>
 
         <div className="table">
-          {/* <div className="flex filters"> */}
           <select
             name="drinks"
             id="drinks"
+            defaultValue={currentFilters.type}
             onChange={(e) =>
               setCurrentFilters({
                 ...currentFilters,
@@ -58,6 +53,7 @@ export default function Filters() {
           <select
             name="pack"
             id="pack"
+            defaultValue={currentFilters.pack}
             onChange={(e) =>
               setCurrentFilters({
                 ...currentFilters,
@@ -81,6 +77,7 @@ export default function Filters() {
           <select
             name="sortby"
             id="sortby"
+            defaultValue={currentFilters.sortBy}
             onChange={(e) =>
               setCurrentFilters({
                 ...currentFilters,
@@ -101,6 +98,7 @@ export default function Filters() {
           <select
             name="order"
             id="order"
+            defaultValue={currentFilters.order}
             onChange={(e) =>
               setCurrentFilters({
                 ...currentFilters,
@@ -126,7 +124,7 @@ export default function Filters() {
                 onChange={() =>
                   setCurrentFilters({
                     ...currentFilters,
-                    includePromo: !includePromo,
+                    includePromo: !currentFilters.includePromo,
                   })
                 }
               />
