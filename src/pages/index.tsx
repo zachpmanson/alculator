@@ -14,9 +14,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main>
-        <h1 className="col center text-center" title="Click here for table interface" onClick={() => setNewUI(!newUI)}>
-          Alculator
-        </h1>
+        <header className="col center text-center">
+          <h1 title="Click here for table interface" onClick={() => setNewUI(!newUI)}>
+            Alculator
+          </h1>
+          <p className="vert-margin">Find the cheapest drinks, per standard</p>
+        </header>
+
         <Filters />
         {newUI ? <DrinkCardList /> : <ResultList />}
       </main>
