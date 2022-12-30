@@ -146,8 +146,19 @@ select {
 }
 
 .badge {
-  display: block;
-  margin: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  text-align: center;
+}
+
+.badge-label {
+  color: darkgray;
+}
+
+.badge-number {
+  font-size: larger;
+  font-weight: bolder;
 }
 
 .fill-width {
