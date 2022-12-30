@@ -1,9 +1,8 @@
-env:
-  REPO_DIR: alculator
-
 name: manual-pull-DM-catalogue
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
+env:
+  REPO_DIR: alculator
 jobs:
   Manual-Pull-DM-Catalogue:
     runs-on: ubuntu-latest
