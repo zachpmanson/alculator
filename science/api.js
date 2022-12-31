@@ -69,15 +69,14 @@ function processBundle(bundle) {
  * @param {*} department
  * @param {*} subdepartment
  */
-function saveDrinks(name, department, subdepartment, pagecount = 1) {
+function saveDrinks(name, department, subdepartment, page = 1) {
   // for (let page = 1; page <= pagecount; page++) {
-  let queryID = `${name}-${department}${!!subdepartment ? "-" + subdepartment : ""}-${pagecount}`;
+  let queryID = `${name}-${department}${!!subdepartment ? "-" + subdepartment : ""}-${page}`;
   allQueriesStatus[queryID] = false;
   const data = JSON.stringify({
     department: department,
     filters: [],
-    // pageNumber: page,
-    pageNumber: pagecount,
+    pageNumber: page,
     pageSize: nresults,
     sortType: "PriceAsc",
     Location: "ListerFacet",
@@ -112,7 +111,7 @@ function saveDrinks(name, department, subdepartment, pagecount = 1) {
         let bundles = JSON.parse(data).Bundles;
         console.log(`Received ${bundles.length} bundles (${queryID})`);
         if (bundles.length + 20 > nresults) {
-          saveDrinks(name, department, subdepartment, pagecount + 1);
+          saveDrinks(name, department, subdepartment, page + 1);
         }
         let cans = bundles.map(processBundle);
 
