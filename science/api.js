@@ -102,7 +102,7 @@ function saveDrinks(name, department, subdepartment, pagecount = 1) {
 
       console.log(`Response: ${res.statusCode} (${queryID})`);
 
-      if (res.statusCode != 200) return;
+      if (res.statusCode != 200) process.exit(1);
 
       res.on("data", (chunk) => {
         data += chunk;
