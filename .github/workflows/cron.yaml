@@ -1,7 +1,7 @@
 name: pull-DM-catalogue
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "*/5 * * * *"
     # - cron: "0 1 * * *"
 jobs:
   update-data:
