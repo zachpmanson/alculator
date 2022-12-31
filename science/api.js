@@ -1,7 +1,7 @@
 const https = require("https");
 const fs = require("fs");
 
-const nresults = +process.argv[2] || 500;
+const nresults = +process.argv[2] || 100;
 
 // for Dan Murphy's fuck ups, uses product stock code
 const blacklist = JSON.parse(fs.readFileSync("blacklist.json"));
@@ -70,60 +70,64 @@ function processBundle(bundle) {
  * @param {*} subdepartment
  */
 function saveDrinks(name, department, subdepartment, pagecount = 1) {
-  for (let page = 1; page <= pagecount; page++) {
-    let queryID = name + page;
-    allQueriesStatus[queryID] = false;
-    const data = JSON.stringify({
-      department: department,
-      filters: [],
-      pageNumber: page,
-      pageSize: nresults,
-      sortType: "PriceAsc",
-      Location: "ListerFacet",
-      subDepartment: subdepartment,
-      // PageUrl: `/${type}/all` // don't need
-    });
-    const options = {
-      hostname: "api.danmurphys.com.au",
-      path: "/apis/ui/Browse",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Content-Length": data.length,
-      },
-    };
+  // for (let page = 1; page <= pagecount; page++) {
+  let queryID = `${name}-${department}${!!subdepartment ? "-" + subdepartment : ""}-${pagecount}`;
+  allQueriesStatus[queryID] = false;
+  const data = JSON.stringify({
+    department: department,
+    filters: [],
+    // pageNumber: page,
+    pageNumber: pagecount,
+    pageSize: nresults,
+    sortType: "PriceAsc",
+    Location: "ListerFacet",
+    subDepartment: subdepartment,
+    // PageUrl: `/${type}/all` // don't need
+  });
+  const options = {
+    hostname: "api.danmurphys.com.au",
+    path: "/apis/ui/Browse",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Content-Length": data.length,
+    },
+  };
 
-    console.log(`Sending http request (${queryID})`);
+  console.log(`Sending http request (${queryID})`);
 
-    const req = https
-      .request(options, (res) => {
-        let data = "";
+  const req = https
+    .request(options, (res) => {
+      let data = "";
 
-        console.log(`Response: ${res.statusCode} (${queryID})`);
+      console.log(`Response: ${res.statusCode} (${queryID})`);
 
-        if (res.statusCode != 200) return;
+      if (res.statusCode != 200) return;
 
-        res.on("data", (chunk) => {
-          data += chunk;
-        });
-
-        res.on("end", () => {
-          let bundles = JSON.parse(data).Bundles;
-          let cans = bundles.map(processBundle);
-
-          allDrinks[name].push(...cans);
-          allQueriesStatus[queryID] = true;
-          checkIfAllComplete();
-          // saveJSON(name, cans);
-        });
-      })
-      .on("error", (err) => {
-        console.log("Error: ", err.message);
+      res.on("data", (chunk) => {
+        data += chunk;
       });
 
-    req.write(data);
-    req.end();
-  }
+      res.on("end", () => {
+        let bundles = JSON.parse(data).Bundles;
+        console.log(`Received ${bundles.length} bundles (${queryID})`);
+        if (bundles.length + 20 > nresults) {
+          saveDrinks(name, department, subdepartment, pagecount + 1);
+        }
+        let cans = bundles.map(processBundle);
+
+        allDrinks[name].push(...cans);
+        allQueriesStatus[queryID] = true;
+        checkIfAllComplete();
+      });
+    })
+    .on("error", (err) => {
+      console.log("Error: ", err.message);
+    });
+
+  req.write(data);
+  req.end();
+  // }
 }
 
 function checkIfAllComplete() {
@@ -144,9 +148,17 @@ let allDrinks = {
 
 let allQueriesStatus = {};
 
-saveDrinks("beer", "beer", undefined, 4);
-saveDrinks("cider", "cider", undefined, 2);
-saveDrinks("premix", "spirits", "premix drinks", 2);
-saveDrinks("spirits", "spirits", undefined, 6);
-saveDrinks("redwine", "red wine", undefined, 6);
-saveDrinks("whitewine", "white wine", undefined, 6);
+// saveDrinks("beer", "beer", undefined, 4);
+// saveDrinks("cider", "cider", undefined, 2);
+// saveDrinks("premix", "spirits", "premix drinks", 2);
+// saveDrinks("spirits", "spirits", undefined, 6);
+// saveDrinks("spirits", "whisky", undefined, 2);
+// saveDrinks("redwine", "red wine", undefined, 6);
+// saveDrinks("whitewine", "white wine", undefined, 6);
+saveDrinks("beer", "beer", undefined, 1);
+saveDrinks("cider", "cider", undefined, 1);
+saveDrinks("premix", "spirits", "premix drinks", 1);
+saveDrinks("spirits", "spirits", undefined, 1);
+saveDrinks("spirits", "whisky", undefined, 1);
+saveDrinks("redwine", "red wine", undefined, 1);
+saveDrinks("whitewine", "white wine", undefined, 1);
