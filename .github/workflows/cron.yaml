@@ -1,7 +1,8 @@
 name: pull-DM-catalogue
 on:
   schedule:
-    - cron: "0 1 * * *"
+    - cron: "*/4 * * * *"
+    # - cron: "0 1 * * *"
 jobs:
   update-data:
     runs-on: ubuntu-latest
