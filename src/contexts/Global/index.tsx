@@ -5,6 +5,9 @@ import { GlobalContextProps, GlobalContextProvider } from "./context";
 const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const [allDrinks, setAllDrinks] = useState<Drink[]>([]);
   const [currentDrinks, setCurrentDrinks] = useState<Drink[]>([]);
+
+  const [currentLockedDrinks, setCurrentLockedDrinks] = useState<Drink[]>([]);
+
   const [cachedDrinkLists, setCachedDrinkLists] = useState<{ [key in DrinkType]: Drink[] }>({
     beer: [],
     cider: [],
@@ -102,8 +105,10 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
       currentFilters: currentFilters,
       setCurrentFilters: setCurrentFilters,
       onSearchChange: onSearchChange,
+      currentLockedDrinks: currentLockedDrinks,
+      setCurrentLockedDrinks: setCurrentLockedDrinks,
     }),
-    [currentDrinks, currentFilters, onSearchChange]
+    [currentDrinks, currentFilters, onSearchChange, currentLockedDrinks]
   );
 
   return <GlobalContextProvider value={value}>{children}</GlobalContextProvider>;
