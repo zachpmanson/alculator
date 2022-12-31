@@ -1,4 +1,5 @@
 name: pull-DM-catalogue
+on: workflow_dispatch
 jobs:
   update-data:
     runs-on: ubuntu-latest
