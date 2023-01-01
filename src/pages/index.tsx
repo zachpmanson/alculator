@@ -12,8 +12,6 @@ export default function Home() {
       <Head>
         <title>Alculator</title>
         <meta name="description" content="Find the cheapest drinks, per standard" />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main>

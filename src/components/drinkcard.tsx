@@ -38,7 +38,6 @@ export default function DrinkCard({ item }: DrinkCardProps) {
 
   return (
     <div className="card center">
-      {/* <a href={`https://www.danmurphys.com.au/product/${item.stockcode}`}> */}
       <div
         className="flex center-aligned"
         onClick={() => (window.location.href = `https://www.danmurphys.com.au/product/${item.stockcode}`)}
@@ -50,9 +49,10 @@ export default function DrinkCard({ item }: DrinkCardProps) {
           src={`https://media.danmurphys.com.au/dmo/product/${item.stockcode}-1.png`}
         />
         <div className="fill-width">
-          <div className="flex space-between">
+          <div className="flex space-between align-center">
             <h3>{item.name}</h3>
             <div
+              className="lock-button"
               onClick={handleLock}
               onMouseEnter={() => setLockFilled(true)}
               onMouseLeave={() => setLockFilled(false)}
@@ -84,7 +84,6 @@ export default function DrinkCard({ item }: DrinkCardProps) {
           </div>
         </div>
       </div>
-      {/* </a> */}
     </div>
   );
 }

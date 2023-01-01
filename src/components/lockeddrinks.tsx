@@ -10,7 +10,7 @@ export default function LockedDrinks() {
 
   const tableBody = currentLockedDrinks.map((item, index) => (
     <>
-      <div className="locked-drinks-title-line flex space-between">
+      <div className="title-line flex space-between align-center">
         <a href={`https://www.danmurphys.com.au/product/${item.stockcode}`}>{item.name}</a>
         <div className="close-button">
           <XMarkIcon
