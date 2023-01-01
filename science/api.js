@@ -70,7 +70,6 @@ function processBundle(bundle) {
  * @param {*} subdepartment
  */
 function saveDrinks(name, department, subdepartment, page = 1) {
-  // for (let page = 1; page <= pagecount; page++) {
   let queryID = `${name}-${department}${!!subdepartment ? "-" + subdepartment : ""}-${page}`;
   allQueriesStatus[queryID] = false;
   const data = JSON.stringify({
@@ -126,7 +125,6 @@ function saveDrinks(name, department, subdepartment, page = 1) {
 
   req.write(data);
   req.end();
-  // }
 }
 
 function checkIfAllComplete() {
