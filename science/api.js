@@ -1,6 +1,7 @@
 const https = require("https");
 const fs = require("fs");
 
+// Over 100 tends to fail because DM has an inefficient server
 const nresults = +process.argv[2] || 100;
 
 // for Dan Murphy's fuck ups, uses product stock code
@@ -50,7 +51,6 @@ function processBundle(bundle) {
       case: caseunits,
     },
     prices: {
-      // add packsize and casesize
       bottle: bottleprice,
       pack: packprice,
       case: caseprice,
@@ -68,6 +68,7 @@ function processBundle(bundle) {
  * @param {*} name name for output file and logging
  * @param {*} department
  * @param {*} subdepartment
+ * @param {*} page page number to hit API with
  */
 function saveDrinks(name, department, subdepartment, page = 1) {
   let queryID = `${name}-${department}${!!subdepartment ? "-" + subdepartment : ""}-${page}`;
@@ -110,6 +111,7 @@ function saveDrinks(name, department, subdepartment, page = 1) {
         let bundles = JSON.parse(data).Bundles;
         console.log(`Received ${bundles.length} bundles (${queryID})`);
         if (bundles.length + 20 > nresults) {
+          // recursive call, save more drinks if more drinks exist
           saveDrinks(name, department, subdepartment, page + 1);
         }
         let cans = bundles.map(processBundle);
@@ -134,6 +136,7 @@ function checkIfAllComplete() {
   }
 }
 
+// Stores actual values
 let allDrinks = {
   beer: [],
   cider: [],
@@ -143,15 +146,9 @@ let allDrinks = {
   whitewine: [],
 };
 
+// Stores status of each API call
 let allQueriesStatus = {};
 
-// saveDrinks("beer", "beer", undefined, 4);
-// saveDrinks("cider", "cider", undefined, 2);
-// saveDrinks("premix", "spirits", "premix drinks", 2);
-// saveDrinks("spirits", "spirits", undefined, 6);
-// saveDrinks("spirits", "whisky", undefined, 2);
-// saveDrinks("redwine", "red wine", undefined, 6);
-// saveDrinks("whitewine", "white wine", undefined, 6);
 saveDrinks("beer", "beer", undefined, 1);
 saveDrinks("cider", "cider", undefined, 1);
 saveDrinks("premix", "spirits", "premix drinks", 1);
