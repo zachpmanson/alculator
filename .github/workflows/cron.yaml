@@ -2,8 +2,12 @@ name: pull-DM-catalogue
 on:
   schedule:
     - cron: "0 */24 * * *"
-    # - cron: "0 1 * * *"
-  workflow_dispatch:
+  push:
+    branches:
+    - main
+    paths:
+    - science/blacklist.json
+    - science/api.js
 jobs:
   update-data:
     runs-on: ubuntu-latest
