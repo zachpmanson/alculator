@@ -21,6 +21,7 @@ export default function DrinkCard({ item }: DrinkCardProps) {
 
   const handleLock = (e: any) => {
     e.stopPropagation();
+    e.preventDefault();
     if (currentLockedDrinks.map((d) => d.stockcode).includes(item.stockcode)) {
       setCurrentLockedDrinks(currentLockedDrinks.filter((d) => d.stockcode !== item.stockcode));
     } else {
@@ -38,10 +39,7 @@ export default function DrinkCard({ item }: DrinkCardProps) {
 
   return (
     <div className="card center">
-      <div
-        className="flex center-aligned"
-        onClick={() => (window.location.href = `https://www.danmurphys.com.au/product/${item.stockcode}`)}
-      >
+      <a className="flex center-aligned" href={`https://www.danmurphys.com.au/product/${item.stockcode}`}>
         <Image
           alt="Image of drink"
           height="100"
@@ -83,7 +81,7 @@ export default function DrinkCard({ item }: DrinkCardProps) {
             </div>
           </div>
         </div>
-      </div>
+      </a>
     </div>
   );
 }
