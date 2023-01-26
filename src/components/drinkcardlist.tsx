@@ -4,7 +4,7 @@ import DrinkCard from "./drinkcard";
 import LoadingSpinner from "./loadingspinner";
 
 export default function DrinkCardList() {
-  const { currentDrinks } = useGlobal();
+  const { currentDrinks, allDrinks } = useGlobal();
 
   const [lastDrinkIndex, setLastDrinkIndex] = useState(20);
 
@@ -24,10 +24,9 @@ export default function DrinkCardList() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, [cards, setLastDrinkIndex, lastDrinkIndex]);
-
   return (
     <>
-      {currentDrinks.length === 0 ? (
+      {allDrinks.length === 0 ? (
         <LoadingSpinner></LoadingSpinner>
       ) : cards.length === 0 ? (
         <p className="text-center">No results</p>

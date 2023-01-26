@@ -100,6 +100,7 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const value: GlobalContextProps = useMemo(
     () => ({
       setAllDrinks: setAllDrinks,
+      allDrinks: allDrinks,
       currentDrinks: currentDrinks,
       setCurrentDrinks: setCurrentDrinks,
       currentFilters: currentFilters,
@@ -108,7 +109,7 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
       currentLockedDrinks: currentLockedDrinks,
       setCurrentLockedDrinks: setCurrentLockedDrinks,
     }),
-    [currentDrinks, currentFilters, onSearchChange, currentLockedDrinks]
+    [currentDrinks, currentFilters, onSearchChange, currentLockedDrinks, allDrinks]
   );
 
   return <GlobalContextProvider value={value}>{children}</GlobalContextProvider>;

@@ -3,6 +3,7 @@ import { Drink, FilterOptions } from "../../types";
 
 export type GlobalContextProps = {
   setAllDrinks: Dispatch<SetStateAction<Drink[]>>;
+  allDrinks: Drink[];
   currentFilters: FilterOptions;
   setCurrentFilters: Dispatch<SetStateAction<FilterOptions>>;
   currentDrinks: Drink[];
@@ -25,6 +26,7 @@ const GlobalContext = createContext<GlobalContextProps>({
   currentDrinks: [],
   setCurrentDrinks: () => undefined,
   setAllDrinks: () => undefined,
+  allDrinks: [],
   onSearchChange: () => undefined,
   currentLockedDrinks: [],
   setCurrentLockedDrinks: () => undefined,
