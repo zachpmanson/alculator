@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useGlobal } from "../contexts/Global/context";
 import DrinkCard from "./drinkcard";
+import LoadingSpinner from "./loadingspinner";
 
 export default function DrinkCardList() {
   const { currentDrinks } = useGlobal();
@@ -26,7 +27,13 @@ export default function DrinkCardList() {
 
   return (
     <>
-      {cards.length === 0 ? <p className="text-center">No results</p> : <div className="col center">{cards}</div>}
+      {currentDrinks.length === 0 ? (
+        <LoadingSpinner></LoadingSpinner>
+      ) : cards.length === 0 ? (
+        <p className="text-center">No results</p>
+      ) : (
+        <div className="col center">{cards}</div>
+      )}
       {cards.length === currentDrinks.length || (
         <div className="col center load-button-container">
           <button className="load-button" onClick={() => setLastDrinkIndex(lastDrinkIndex + 20)}>
