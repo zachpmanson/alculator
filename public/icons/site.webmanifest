@@ -1,23 +1,23 @@
 {
-    "name": "Zach Manson",
-    "short_name": "Zach Manson",
-    "icons": [
-        {
-            "src": "/icons/apple-touch-icon.png",
-            "sizes": "180x180",
-            "type": "image/png"
-        },        
-		{
-            "src": "/icons/android-chrome-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "/icons/android-chrome-256x256.png",
-            "sizes": "256x256",
-            "type": "image/png"
-        }
-    ],
-    "theme_color": "#282A36",
-    "background_color": "#282A36"
+  "name": "Alculator",
+  "short_name": "Alculator",
+  "icons": [
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/android-chrome-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#282A36",
+  "background_color": "#282A36"
 }
