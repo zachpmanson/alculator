@@ -1,24 +1,15 @@
 import { ChangeEvent, ReactNode, useCallback, useEffect, useMemo, useState } from "react";
-import { Drink, DrinkType, FilterOptions, PackType } from "../../types";
+import { PAGE_SIZE } from "../../constants";
+import { Drink, FilterOptions } from "../../types";
 import { GlobalContextProps, GlobalContextProvider } from "./context";
 
 const GlobalProvider = ({ children }: { children: ReactNode }) => {
-  const [allDrinks, setAllDrinks] = useState<Drink[]>([]);
   const [currentDrinks, setCurrentDrinks] = useState<Drink[]>([]);
-
+  const [done, setDone] = useState(false);
   const [currentLockedDrinks, setCurrentLockedDrinks] = useState<Drink[]>([]);
 
-  const [cachedDrinkLists, setCachedDrinkLists] = useState<{ [key in DrinkType]: Drink[] }>({
-    beer: [],
-    cider: [],
-    premix: [],
-    spirits: [],
-    redwine: [],
-    whitewine: [],
-  });
-
   const [currentFilters, setCurrentFilters] = useState<FilterOptions>({
-    type: "beer",
+    type: "all",
     pack: "bottle",
     includePromo: false,
     search: "",
@@ -26,81 +17,65 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
     order: "asc",
   });
 
-  const onSearchChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      const searchFieldString = event.target.value.toLocaleLowerCase();
-      setCurrentFilters({ ...currentFilters, search: searchFieldString });
-    },
-    [setCurrentFilters, currentFilters]
-  );
+  const [currentPage, setCurrentPage] = useState(1);
 
-  // Updates the full drink list
-  useEffect(() => {
-    if (cachedDrinkLists[currentFilters.type].length === 0) {
-      fetch(`/api/drinks/${currentFilters.type}`)
-        .then((response) => response.json())
-        .then((data) => {
-          const drinkList = JSON.parse(data);
-          let newCachedDrinkList = cachedDrinkLists;
-          newCachedDrinkList[currentFilters.type] = drinkList;
-
-          setCachedDrinkLists(newCachedDrinkList);
-          setAllDrinks(drinkList);
-        });
-    } else {
-      setAllDrinks(cachedDrinkLists[currentFilters.type]);
-    }
-  }, [currentFilters.type, cachedDrinkLists]);
+  const onSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    const searchFieldString = event.target.value.toLocaleLowerCase();
+    setCurrentFilters((old) => ({ ...old, search: searchFieldString }));
+  }, []);
 
   // Recalculates filtering
   useEffect(() => {
-    const fullPackname = currentFilters.includePromo
-      ? (("promo" + currentFilters.pack) as PackType)
-      : currentFilters.pack;
-
-    const sortBy = currentFilters.sortBy;
-
-    // invert ordering if desc is selected
-    const sortFn = (a: Drink, b: Drink) => (a[sortBy] - b[sortBy]) * (currentFilters.order === "asc" ? 1 : -1);
-    console.log(allDrinks);
-    const newCurrentDrinks = allDrinks
-      .filter((d) => !!d)
-      // check either price exists
-      .filter((d) => !!d.standardDrinks)
-      .filter((d) => !!d.prices[fullPackname] || !!d.prices[currentFilters.pack])
-      // remove cases without unit counts
-      .filter((d) => currentFilters.pack !== "case" || !!d.units.case)
-      // remove packs without unit counts
-      .filter((d) => currentFilters.pack !== "pack" || !!d.units.pack)
-      // Calculates full standardDrinks standardDrinks
-      .map((d) => {
-        let standardDrinks = d.standardDrinks;
-        if (currentFilters.pack === "case") {
-          standardDrinks = standardDrinks * d.units.case;
-        } else if (currentFilters.pack === "pack") {
-          standardDrinks = standardDrinks * d.units.pack;
-        }
-        return { ...d, standardDrinks: standardDrinks };
+    setCurrentPage(1);
+    setDone(false);
+    fetch("/api/drinks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        filterOptions: currentFilters,
+        pageNum: 1,
+        pageSize: PAGE_SIZE,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.length === 0) setDone(true);
+        setCurrentDrinks(data);
       })
-      // make new entry for particular price, choose lowest price
-      .map((d) => {
-        return { ...d, price: Math.max(d.prices[fullPackname], d.prices[currentFilters.pack]) };
-      })
-      // add ratio column
-      .map((d) => {
-        return { ...d, ratio: d.price / d.standardDrinks };
-      })
-      // filter on search query
-      .filter((d) => d.name.toLocaleLowerCase().includes(currentFilters.search))
-      .sort(sortFn);
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, [currentFilters]);
 
-    setCurrentDrinks(newCurrentDrinks);
-  }, [currentFilters, allDrinks]);
+  useEffect(() => {
+    if (currentPage !== 1) {
+      fetch("/api/drinks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          filterOptions: currentFilters,
+          pageNum: currentPage,
+          pageSize: PAGE_SIZE,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.length === 0) setDone(true);
+          setCurrentDrinks((old) => [...old, ...data]);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+  }, [currentFilters, currentPage, setCurrentDrinks]);
 
   const value: GlobalContextProps = useMemo(
     () => ({
-      setAllDrinks: setAllDrinks,
-      allDrinks: allDrinks,
+      done: done,
       currentDrinks: currentDrinks,
       setCurrentDrinks: setCurrentDrinks,
       currentFilters: currentFilters,
@@ -108,8 +83,10 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
       onSearchChange: onSearchChange,
       currentLockedDrinks: currentLockedDrinks,
       setCurrentLockedDrinks: setCurrentLockedDrinks,
+      currentPage: currentPage,
+      setCurrentPage: setCurrentPage,
     }),
-    [currentDrinks, currentFilters, onSearchChange, currentLockedDrinks, allDrinks]
+    [currentDrinks, currentFilters, onSearchChange, currentLockedDrinks, currentPage, setCurrentPage]
   );
 
   return <GlobalContextProvider value={value}>{children}</GlobalContextProvider>;

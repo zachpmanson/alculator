@@ -1,4 +1,15 @@
-export type DrinkType = "beer" | "cider" | "premix" | "spirits" | "redwine" | "whitewine";
+export enum DrinkTypeEnum {
+  // all = "all",
+  beer = "beer",
+  cider = "cider",
+  premix = "premix",
+  spirits = "spirits",
+  redwine = "redwine",
+  whitewine = "whitewine",
+}
+
+// export type DrinkType = "all" | "beer" | "cider" | "premix" | "spirits" | "redwine" | "whitewine";
+export type DrinkType = keyof typeof DrinkTypeEnum;
 
 export type PackType = "bottle" | "pack" | "case" | "promobottle" | "promopack" | "promocase";
 
@@ -22,7 +33,7 @@ export type SortByOption = "ratio" | "price" | "standardDrinks";
 export type Ordering = "asc" | "desc";
 
 export type FilterOptions = {
-  type: DrinkType;
+  type: DrinkType | "all";
   pack: PackType;
   includePromo: boolean;
   search: string;

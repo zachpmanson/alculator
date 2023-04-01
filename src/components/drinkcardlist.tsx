@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useGlobal } from "../contexts/Global/context";
 import DrinkCard from "./drinkcard";
 import LoadingSpinner from "./loadingspinner";
 
 export default function DrinkCardList() {
-  const { currentDrinks, allDrinks } = useGlobal();
+  const { currentDrinks, currentPage, setCurrentPage, done } = useGlobal();
 
-  const [lastDrinkIndex, setLastDrinkIndex] = useState(20);
-
-  const cards = currentDrinks.slice(0, lastDrinkIndex).map((item, index) => <DrinkCard key={index} item={item} />);
+  const cards = currentDrinks.map((item, index) => <DrinkCard key={index} item={item} />);
 
   useEffect(() => {
     const onScroll = () => {
@@ -17,25 +15,26 @@ export default function DrinkCardList() {
       const clientHeight = document.documentElement.clientHeight;
       if (scrollTop + clientHeight >= scrollHeight) {
         setTimeout(() => {
-          setLastDrinkIndex(lastDrinkIndex + 10);
+          setCurrentPage(currentPage + 1);
         }, 500);
       }
     };
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, [cards, setLastDrinkIndex, lastDrinkIndex]);
+  }, [cards, setCurrentPage, currentPage]);
   return (
     <>
-      {allDrinks.length === 0 ? (
+      {currentDrinks.length === 0 ? (
         <LoadingSpinner></LoadingSpinner>
       ) : cards.length === 0 ? (
         <p className="text-center">No results</p>
       ) : (
         <div className="col center">{cards}</div>
       )}
-      {cards.length === currentDrinks.length || (
+
+      {done || (
         <div className="col center load-button-container">
-          <button className="load-button" onClick={() => setLastDrinkIndex(lastDrinkIndex + 20)}>
+          <button className="load-button" onClick={() => setCurrentPage(currentPage + 1)}>
             Load more
           </button>
         </div>

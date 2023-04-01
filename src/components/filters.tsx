@@ -1,6 +1,16 @@
 import { useGlobal } from "../contexts/Global/context";
 import { DrinkType, Ordering, PackType, SortByOption } from "../types";
 
+const debounce = (fn: (...args: any[]) => void, delay: number) => {
+  let timeoutId: NodeJS.Timeout;
+  return function debouncedFn(...args: any[]) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      fn(...args);
+    }, delay);
+  };
+};
+
 export default function Filters() {
   const { currentFilters, setCurrentFilters, onSearchChange } = useGlobal();
   const initPromo = currentFilters.includePromo;
@@ -14,7 +24,7 @@ export default function Filters() {
             name="search"
             className="searchbox fill"
             placeholder="Search..."
-            onChange={onSearchChange}
+            onChange={debounce(onSearchChange, 250)}
           />
         </div>
         <p>Drink:</p>
@@ -31,6 +41,9 @@ export default function Filters() {
               })
             }
           >
+            <option key="all" value="all">
+              All
+            </option>
             <option key="beer" value="beer">
               Beer
             </option>
