@@ -2,11 +2,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useGlobal } from "../contexts/Global/context";
 
 export default function LockedDrinks() {
-  const {
-    currentFilters: { pack },
-    currentLockedDrinks,
-    setCurrentLockedDrinks,
-  } = useGlobal();
+  const { currentLockedDrinks, setCurrentLockedDrinks } = useGlobal();
 
   const tableBody = currentLockedDrinks.map((item, index) => (
     <>
