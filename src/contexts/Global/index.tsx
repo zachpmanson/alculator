@@ -5,7 +5,7 @@ import { GlobalContextProps, GlobalContextProvider } from "./context";
 
 const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const [currentDrinks, setCurrentDrinks] = useState<Drink[]>([]);
-  const [done, setDone] = useState(false);
+  const [done, setDone] = useState(true);
   const [currentLockedDrinks, setCurrentLockedDrinks] = useState<Drink[]>([]);
 
   const [currentFilters, setCurrentFilters] = useState<FilterOptions>({
@@ -41,7 +41,8 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.length === 0) setDone(true);
+        setDone(data.length === 0);
+
         setCurrentDrinks(data);
       })
       .catch((error) => {
@@ -64,7 +65,7 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.length === 0) setDone(true);
+          setDone(data.length === 0);
           setCurrentDrinks((old) => [...old, ...data]);
         })
         .catch((error) => {
@@ -86,7 +87,7 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
       currentPage: currentPage,
       setCurrentPage: setCurrentPage,
     }),
-    [currentDrinks, currentFilters, onSearchChange, currentLockedDrinks, currentPage, setCurrentPage]
+    [done, currentDrinks, currentFilters, onSearchChange, currentLockedDrinks, currentPage]
   );
 
   return <GlobalContextProvider value={value}>{children}</GlobalContextProvider>;

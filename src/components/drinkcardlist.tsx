@@ -24,7 +24,7 @@ export default function DrinkCardList() {
   }, [cards, setCurrentPage, currentPage]);
   return (
     <>
-      {currentDrinks.length === 0 ? (
+      {currentDrinks.length === 0 && !done ? (
         <LoadingSpinner></LoadingSpinner>
       ) : cards.length === 0 ? (
         <p className="text-center">No results</p>
@@ -32,7 +32,7 @@ export default function DrinkCardList() {
         <div className="col center">{cards}</div>
       )}
 
-      {done || (
+      {currentDrinks.length === 0 || done || (
         <div className="col center load-button-container">
           <button className="load-button" onClick={() => setCurrentPage(currentPage + 1)}>
             Load more
