@@ -12,6 +12,8 @@ export type GlobalContextProps = {
   onSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
   currentLockedDrinks: Drink[];
   setCurrentLockedDrinks: Dispatch<SetStateAction<Drink[]>>;
+  reportModeActive: boolean;
+  setReportModeActive: Dispatch<SetStateAction<boolean>>;
 };
 
 const GlobalContext = createContext<GlobalContextProps>({
@@ -32,6 +34,8 @@ const GlobalContext = createContext<GlobalContextProps>({
   onSearchChange: () => undefined,
   currentLockedDrinks: [],
   setCurrentLockedDrinks: () => undefined,
+  reportModeActive: false,
+  setReportModeActive: () => undefined,
 });
 
 export const GlobalContextProvider = GlobalContext.Provider;

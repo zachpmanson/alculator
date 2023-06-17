@@ -1,11 +1,13 @@
+import {
+  LockClosedIcon as LockClosedIconOutline,
+  LockOpenIcon as LockOpenIconOutline,
+} from "@heroicons/react/24/outline";
+import { LockClosedIcon as LockClosedIconSolid, LockOpenIcon as LockOpenIconSolid } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { useGlobal } from "../contexts/Global/context";
 import { Drink } from "../types";
-import { LockClosedIcon as LockClosedIconOutline } from "@heroicons/react/24/outline";
-import { LockOpenIcon as LockOpenIconOutline } from "@heroicons/react/24/outline";
-import { LockClosedIcon as LockClosedIconSolid } from "@heroicons/react/24/solid";
-import { LockOpenIcon as LockOpenIconSolid } from "@heroicons/react/24/solid";
-import { useEffect, useState } from "react";
+
 type DrinkCardProps = {
   item: Drink;
 };
@@ -17,6 +19,7 @@ export default function DrinkCard({ item }: DrinkCardProps) {
     currentFilters: { pack },
     currentLockedDrinks,
     setCurrentLockedDrinks,
+    reportModeActive,
   } = useGlobal();
 
   const handleLock = (e: any) => {
@@ -37,9 +40,30 @@ export default function DrinkCard({ item }: DrinkCardProps) {
     }
   }, [currentLockedDrinks, item.stockcode]);
 
+  const handleClick = async (e: any) => {
+    if (reportModeActive) {
+      e.stopPropagation();
+      e.preventDefault();
+      console.log("Reporting", item.stockcode);
+      await fetch("/api/report", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          product_code: item.stockcode,
+        }),
+      });
+    }
+  };
+
   return (
     <div className="card center">
-      <a className="flex center-aligned" href={`https://www.danmurphys.com.au/product/${item.stockcode}`}>
+      <a
+        className="flex center-aligned"
+        href={`https://www.danmurphys.com.au/product/${item.stockcode}`}
+        onClick={handleClick}
+      >
         <Image
           alt="Image of drink"
           height="100"
