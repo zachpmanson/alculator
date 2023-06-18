@@ -4,10 +4,11 @@ on:
     - cron: "0 */24 * * *"
   push:
     branches:
-    - main
+      - main
     paths:
-    - science/blacklist.json
-    - science/api.js
+      - science/blacklist.json
+      - science/api.js
+  workflow_dispatch:
 jobs:
   update-data:
     runs-on: ubuntu-latest
