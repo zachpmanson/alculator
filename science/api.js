@@ -9,6 +9,7 @@ const blacklist = JSON.parse(fs.readFileSync("blacklist.json"));
 
 function saveJSON(name, data) {
   console.log(`Saving ${data.length} items to ${name}.json`);
+  data = data.filter((d) => !!d);
   fs.writeFile(`${name}.json`, JSON.stringify(data), (err) => {
     if (err) console.log(err);
   });
