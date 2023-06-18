@@ -29,7 +29,7 @@ export default async function handler(
           timestamp: Date.now(),
         },
       });
-      return res.status(201);
+      return res.status(201).end();
     case "GET":
       const activeReports = await prisma.reports.findMany({
         select: {
