@@ -5,6 +5,7 @@ import prisma from "@/lib/prisma";
 import { Drink, PackTypeEnum } from "@/types";
 import { debounce } from "@/utils/debounce";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import Link from "next/link";
 import { ChangeEvent, useEffect, useState } from "react";
 
@@ -79,16 +80,19 @@ export default function Reports({ activeReports, drinkDetails }: ReportProps) {
 
   return (
     <>
+      <Head>
+        <title>Pending Reports</title>
+      </Head>
+
       <main>
         <header className="col center text-center">
           <h1 title="Click here for table interface">Alculator</h1>
-          <p className="vert-margin">Active reports</p>
+          <p className="vert-margin">Pending reports</p>
           <Link className="vert-margin" href={"/"}>
             Go home
           </Link>
         </header>
       </main>
-      {/* <ReportedCardList /> */}
       <div className="col center">
         <input
           type="password"
