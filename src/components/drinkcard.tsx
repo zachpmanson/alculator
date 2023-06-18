@@ -6,13 +6,14 @@ import { LockClosedIcon as LockClosedIconSolid, LockOpenIcon as LockOpenIconSoli
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useGlobal } from "../contexts/Global/context";
-import { Drink } from "../types";
+import { Drink, PackType } from "../types";
 
 type DrinkCardProps = {
   item: Drink;
+  localPack?: PackType; // manual override for pack type
 };
 
-export default function DrinkCard({ item }: DrinkCardProps) {
+export default function DrinkCard({ item, localPack }: DrinkCardProps) {
   const [lockFilled, setLockFilled] = useState(false);
   const [lockClosed, setLockClosed] = useState(true);
   const {
@@ -21,7 +22,7 @@ export default function DrinkCard({ item }: DrinkCardProps) {
     setCurrentLockedDrinks,
     reportModeActive,
   } = useGlobal();
-
+  const usedPackType = localPack ?? pack;
   const handleLock = (e: any) => {
     e.stopPropagation();
     e.preventDefault();
@@ -45,7 +46,7 @@ export default function DrinkCard({ item }: DrinkCardProps) {
       e.stopPropagation();
       e.preventDefault();
       console.log("Reporting", item.stockcode);
-      await fetch("/api/report", {
+      await fetch("/api/blacklist/report", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +73,9 @@ export default function DrinkCard({ item }: DrinkCardProps) {
         />
         <div className="fill-width">
           <div className="flex space-between align-center">
-            <h3>{item.name}</h3>
+            <h3>
+              {item.name} {localPack ? `(${localPack})` : ""}
+            </h3>
             <div
               className="lock-button"
               onClick={handleLock}
@@ -89,10 +92,10 @@ export default function DrinkCard({ item }: DrinkCardProps) {
               <div className="badge-label">Price</div>
               <div className="badge-number">${item.price}</div>
             </div>
-            {(pack === "case" || pack === "pack") && (
+            {(usedPackType === "case" || usedPackType === "pack") && (
               <div className="badge">
                 <div className="badge-label">Units</div>
-                <div className="badge-number">{item.units[pack]}</div>
+                <div className="badge-number">{item.units[usedPackType]}</div>
               </div>
             )}
             <div className="badge">

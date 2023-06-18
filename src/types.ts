@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export enum DrinkTypeEnum {
   // all = "all",
   beer = "beer",
@@ -8,10 +10,17 @@ export enum DrinkTypeEnum {
   whitewine = "whitewine",
 }
 
-// export type DrinkType = "all" | "beer" | "cider" | "premix" | "spirits" | "redwine" | "whitewine";
 export type DrinkType = keyof typeof DrinkTypeEnum;
 
-export type PackType = "bottle" | "pack" | "case" | "promobottle" | "promopack" | "promocase";
+export enum PackTypeEnum {
+  bottle = "bottle",
+  pack = "pack",
+  case = "case",
+  promobottle = "promobottle",
+  promopack = "promopack",
+  promocase = "promocase",
+}
+export type PackType = keyof typeof PackTypeEnum;
 
 export type Drink = {
   name: string;
@@ -40,3 +49,5 @@ export type FilterOptions = {
   sortBy: SortByOption;
   order: Ordering;
 };
+
+export type GenericApiError = { error: string | z.ZodError<any> };
