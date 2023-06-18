@@ -4,11 +4,9 @@ const fs = require("fs");
 // Over 100 tends to fail because DM has an inefficient server
 const nresults = +process.argv[2] || 100;
 
-// for Dan Murphy's fuck ups, uses product stock code
-const blacklist = JSON.parse(fs.readFileSync("blacklist.json"));
-
 function saveJSON(name, data) {
   console.log(`Saving ${data.length} items to ${name}.json`);
+  data = data.filter((d) => !!d);
   fs.writeFile(`${name}.json`, JSON.stringify(data), (err) => {
     if (err) console.log(err);
   });
@@ -101,7 +99,7 @@ function saveDrinks(name, department, subdepartment, page = 1) {
 
       console.log(`Response: ${res.statusCode} (${queryID})`);
 
-      if (res.statusCode != 200) process.exit(1);
+      if (res.statusCode !== 200) process.exit(1);
 
       res.on("data", (chunk) => {
         data += chunk;
@@ -149,10 +147,17 @@ let allDrinks = {
 // Stores status of each API call
 let allQueriesStatus = {};
 
-saveDrinks("beer", "beer", undefined, 1);
-saveDrinks("cider", "cider", undefined, 1);
-saveDrinks("premix", "spirits", "premix drinks", 1);
-saveDrinks("spirits", "spirits", undefined, 1);
-saveDrinks("spirits", "whisky", undefined, 1);
-saveDrinks("redwine", "red wine", undefined, 1);
-saveDrinks("whitewine", "white wine", undefined, 1);
+// for Dan Murphy's fuck ups, uses product stock code
+let blacklist = [];
+fetch("https://alculator.zachmanson.com/api/blacklist")
+  .then((response) => response.json())
+  .then((jsonData) => {
+    blacklist = jsonData;
+    saveDrinks("beer", "beer", undefined, 1);
+    saveDrinks("cider", "cider", undefined, 1);
+    saveDrinks("premix", "spirits", "premix drinks", 1);
+    saveDrinks("spirits", "spirits", undefined, 1);
+    saveDrinks("spirits", "whisky", undefined, 1);
+    saveDrinks("redwine", "red wine", undefined, 1);
+    saveDrinks("whitewine", "white wine", undefined, 1);
+  });

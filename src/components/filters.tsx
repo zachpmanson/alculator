@@ -1,18 +1,9 @@
 import { useGlobal } from "../contexts/Global/context";
 import { DrinkType, Ordering, PackType, SortByOption } from "../types";
-
-const debounce = (fn: (...args: any[]) => void, delay: number) => {
-  let timeoutId: NodeJS.Timeout;
-  return function debouncedFn(...args: any[]) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-      fn(...args);
-    }, delay);
-  };
-};
+import { debounce } from "@/utils/debounce";
 
 export default function Filters() {
-  const { currentFilters, setCurrentFilters, onSearchChange } = useGlobal();
+  const { currentFilters, setCurrentFilters, onSearchChange, reportModeActive, setReportModeActive } = useGlobal();
   const initPromo = currentFilters.includePromo;
 
   return (
@@ -27,7 +18,12 @@ export default function Filters() {
             onChange={debounce(onSearchChange, 250)}
           />
         </div>
-        <p>Drink:</p>
+        <div className="flex space-between">
+          <p>Drink:</p>
+          <p onClick={() => setReportModeActive((o) => !o)}>
+            {reportModeActive ? "Select a drink to report" : "Report mistake"}
+          </p>
+        </div>
 
         <div className="table">
           <select

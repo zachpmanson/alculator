@@ -7,6 +7,7 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const [currentDrinks, setCurrentDrinks] = useState<Drink[]>([]);
   const [done, setDone] = useState(true);
   const [currentLockedDrinks, setCurrentLockedDrinks] = useState<Drink[]>([]);
+  const [reportModeActive, setReportModeActive] = useState(false);
 
   const [currentFilters, setCurrentFilters] = useState<FilterOptions>({
     type: "all",
@@ -86,8 +87,19 @@ const GlobalProvider = ({ children }: { children: ReactNode }) => {
       setCurrentLockedDrinks: setCurrentLockedDrinks,
       currentPage: currentPage,
       setCurrentPage: setCurrentPage,
+      reportModeActive: reportModeActive,
+      setReportModeActive: setReportModeActive,
     }),
-    [done, currentDrinks, currentFilters, onSearchChange, currentLockedDrinks, currentPage]
+    [
+      done,
+      currentDrinks,
+      currentFilters,
+      onSearchChange,
+      currentLockedDrinks,
+      currentPage,
+      reportModeActive,
+      setReportModeActive,
+    ]
   );
 
   return <GlobalContextProvider value={value}>{children}</GlobalContextProvider>;

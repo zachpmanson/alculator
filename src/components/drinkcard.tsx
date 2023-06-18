@@ -1,24 +1,28 @@
+import {
+  LockClosedIcon as LockClosedIconOutline,
+  LockOpenIcon as LockOpenIconOutline,
+} from "@heroicons/react/24/outline";
+import { LockClosedIcon as LockClosedIconSolid, LockOpenIcon as LockOpenIconSolid } from "@heroicons/react/24/solid";
 import Image from "next/image";
-import { useGlobal } from "../contexts/Global/context";
-import { Drink } from "../types";
-import { LockClosedIcon as LockClosedIconOutline } from "@heroicons/react/24/outline";
-import { LockOpenIcon as LockOpenIconOutline } from "@heroicons/react/24/outline";
-import { LockClosedIcon as LockClosedIconSolid } from "@heroicons/react/24/solid";
-import { LockOpenIcon as LockOpenIconSolid } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
+import { useGlobal } from "../contexts/Global/context";
+import { Drink, PackType } from "../types";
+
 type DrinkCardProps = {
   item: Drink;
+  localPack?: PackType; // manual override for pack type
 };
 
-export default function DrinkCard({ item }: DrinkCardProps) {
+export default function DrinkCard({ item, localPack }: DrinkCardProps) {
   const [lockFilled, setLockFilled] = useState(false);
   const [lockClosed, setLockClosed] = useState(true);
   const {
     currentFilters: { pack },
     currentLockedDrinks,
     setCurrentLockedDrinks,
+    reportModeActive,
   } = useGlobal();
-
+  const usedPackType = localPack ?? pack;
   const handleLock = (e: any) => {
     e.stopPropagation();
     e.preventDefault();
@@ -37,9 +41,30 @@ export default function DrinkCard({ item }: DrinkCardProps) {
     }
   }, [currentLockedDrinks, item.stockcode]);
 
+  const handleClick = async (e: any) => {
+    if (reportModeActive) {
+      e.stopPropagation();
+      e.preventDefault();
+      console.log("Reporting", item.stockcode);
+      await fetch("/api/blacklist/report", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          product_code: item.stockcode,
+        }),
+      });
+    }
+  };
+
   return (
     <div className="card center">
-      <a className="flex center-aligned" href={`https://www.danmurphys.com.au/product/${item.stockcode}`}>
+      <a
+        className="flex center-aligned"
+        href={`https://www.danmurphys.com.au/product/${item.stockcode}`}
+        onClick={handleClick}
+      >
         <Image
           alt="Image of drink"
           height="100"
@@ -48,7 +73,9 @@ export default function DrinkCard({ item }: DrinkCardProps) {
         />
         <div className="fill-width">
           <div className="flex space-between align-center">
-            <h3>{item.name}</h3>
+            <h3>
+              {item.name} {localPack ? `(${localPack})` : ""}
+            </h3>
             <div
               className="lock-button"
               onClick={handleLock}
@@ -65,10 +92,10 @@ export default function DrinkCard({ item }: DrinkCardProps) {
               <div className="badge-label">Price</div>
               <div className="badge-number">${item.price}</div>
             </div>
-            {(pack === "case" || pack === "pack") && (
+            {(usedPackType === "case" || usedPackType === "pack") && (
               <div className="badge">
                 <div className="badge-label">Units</div>
-                <div className="badge-number">{item.units[pack]}</div>
+                <div className="badge-number">{item.units[usedPackType]}</div>
               </div>
             )}
             <div className="badge">
