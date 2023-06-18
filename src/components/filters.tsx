@@ -20,7 +20,7 @@ export default function Filters() {
         </div>
         <div className="flex space-between">
           <p>Drink:</p>
-          <p onClick={() => setReportModeActive((o) => !o)}>
+          <p onClick={() => setReportModeActive((o) => !o)} className="selectable">
             {reportModeActive ? "Select a drink to report" : "Report mistake"}
           </p>
         </div>

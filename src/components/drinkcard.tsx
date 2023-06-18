@@ -14,15 +14,20 @@ type DrinkCardProps = {
 };
 
 export default function DrinkCard({ item, localPack }: DrinkCardProps) {
+  const { setCurrentDrinks } = useGlobal();
   const [lockFilled, setLockFilled] = useState(false);
   const [lockClosed, setLockClosed] = useState(true);
+  const [greyed, setGreyed] = useState(false);
+
   const {
     currentFilters: { pack },
     currentLockedDrinks,
     setCurrentLockedDrinks,
     reportModeActive,
   } = useGlobal();
+
   const usedPackType = localPack ?? pack;
+
   const handleLock = (e: any) => {
     e.stopPropagation();
     e.preventDefault();
@@ -41,12 +46,13 @@ export default function DrinkCard({ item, localPack }: DrinkCardProps) {
     }
   }, [currentLockedDrinks, item.stockcode]);
 
-  const handleClick = async (e: any) => {
+  const handleClick = (e: any) => {
     if (reportModeActive) {
       e.stopPropagation();
       e.preventDefault();
+      setGreyed(true);
       console.log("Reporting", item.stockcode);
-      await fetch("/api/blacklist/report", {
+      fetch("/api/blacklist/report", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,12 +60,17 @@ export default function DrinkCard({ item, localPack }: DrinkCardProps) {
         body: JSON.stringify({
           product_code: item.stockcode,
         }),
+      }).then((res) => {
+        if (res.status === 201) {
+          setCurrentDrinks((old) => old.filter((d) => d.stockcode !== item.stockcode));
+        }
+        setGreyed(false);
       });
     }
   };
 
   return (
-    <div className="card center">
+    <div className={`card center ${greyed ? "bg-grey" : ""}`}>
       <a
         className="flex center-aligned"
         href={`https://www.danmurphys.com.au/product/${item.stockcode}`}

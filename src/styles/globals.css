@@ -245,6 +245,10 @@ input {
   padding: 0.5rem;
 }
 
+.bg-grey {
+  background-color: grey;
+}
+
 .loading-spinner {
   border: 0.5rem solid white; /* Light grey */
   border-top: 0.5rem solid #ccc; /* Blue */
@@ -252,6 +256,10 @@ input {
   width: 5rem;
   height: 5rem;
   animation: spin 2s linear infinite;
+}
+
+.selectable {
+  cursor: pointer;
 }
 
 @keyframes spin {
