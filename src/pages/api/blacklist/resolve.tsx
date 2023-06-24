@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { GenericApiError } from "@/types";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { z } from "zod";
 
@@ -8,7 +9,7 @@ const schema = z.object({
   password: z.string(),
 });
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<{ error: string | z.ZodError<any> }>) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<GenericApiError>) {
   switch (req.method) {
     case "PATCH":
       const response = schema.safeParse(req.body);

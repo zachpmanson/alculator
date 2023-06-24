@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { getAllDrinks } from "@/lib/drinks";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Drink, DrinkType, DrinkTypeEnum, FilterOptions, GenericApiError, PackType } from "../../../types";
+import { Drink, FilterOptions, GenericApiError, PackType } from "../../../types";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Drink[] | GenericApiError>) {
   let allDrinks: Drink[];

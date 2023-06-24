@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
+import { GenericApiError } from "@/types";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<string[] | { error: string }>) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<string[] | GenericApiError>) {
   switch (req.method) {
     case "GET":
       const blacklist = await prisma.reports.findMany({
