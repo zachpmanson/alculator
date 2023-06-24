@@ -1,19 +1,19 @@
-import cacheData from "memory-cache";
 import { Drink, DrinkType, DrinkTypeEnum } from "@/types";
-import { readFile } from "fs/promises";
-import path from "path";
-
-const scienceDir = path.join(process.cwd(), "science");
+import cacheData from "memory-cache";
 
 export async function getAllDrinks(type: "all" | DrinkType): Promise<Drink[]> {
   let allDrinks = cacheData.get("allDrinks");
   if (!allDrinks) {
     const values = await Promise.all(
-      Object.values(DrinkTypeEnum).map(async (drink) => readFile(`${scienceDir}/${drink}.json`, "utf-8"))
+      Object.values(DrinkTypeEnum).map((drink) =>
+        fetch(`https://raw.githubusercontent.com/pavo-etc/alculator-data/master/${drink}.json`).then((res) =>
+          res.json()
+        )
+      )
     );
     allDrinks = {};
     Object.values(DrinkTypeEnum).forEach((drink, i) => {
-      allDrinks[drink] = JSON.parse(values[i]);
+      allDrinks[drink] = values[i];
     });
     cacheData.put("allDrinks", allDrinks, 3600_000);
   } else {
