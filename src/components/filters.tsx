@@ -1,10 +1,22 @@
 import { useGlobal } from "../contexts/Global/context";
 import { DrinkType, Ordering, PackType, SortByOption } from "../types";
 import { debounce } from "@/utils/debounce";
+import { useEffect, useState } from "react";
+import { timeAgo } from "@/utils/timesince";
+import Link from "next/link";
 
 export default function Filters() {
   const { currentFilters, setCurrentFilters, onSearchChange, reportModeActive, setReportModeActive } = useGlobal();
   const initPromo = currentFilters.includePromo;
+  const [lastUpdate, setLastUpdate] = useState<Date>();
+
+  useEffect(() => {
+    fetch("/api/drinks/timestamp")
+      .then((res) => res.json())
+      .then((data) => {
+        setLastUpdate(new Date(data.date));
+      });
+  }, [setLastUpdate]);
 
   return (
     <>
@@ -19,7 +31,8 @@ export default function Filters() {
           />
         </div>
         <div className="flex space-between">
-          <p>Drink:</p>
+          {reportModeActive ? <Link href="/reports">Pending reports</Link> : <p>Drink:</p>}
+
           <p onClick={() => setReportModeActive((o) => !o)} className="selectable">
             {reportModeActive ? "Select a drink to report" : "Report mistake"}
           </p>
@@ -123,7 +136,7 @@ export default function Filters() {
             </option>
           </select>
         </div>
-        <div className="vert-margin">
+        <div className="vert-margin flex space-between">
           <details>
             <summary>Show all filters</summary>
             <label>
@@ -140,6 +153,7 @@ export default function Filters() {
               Include promotions
             </label>
           </details>
+          {lastUpdate && `Last updated ${timeAgo(lastUpdate)}`}
         </div>
       </div>
     </>
