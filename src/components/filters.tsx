@@ -153,7 +153,7 @@ export default function Filters() {
               Include promotions
             </label>
           </details>
-          {lastUpdate && `Last updated ${timeAgo(lastUpdate)}`}
+          {lastUpdate && `Last updated ${timeAgo(lastUpdate)} ago`}
         </div>
       </div>
     </>
