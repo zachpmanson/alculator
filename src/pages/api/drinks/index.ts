@@ -1,23 +1,32 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { getAllDrinks } from "@/lib/drinks";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Drink, FilterOptions, GenericApiError, PackType } from "../../../types";
+import { Drink, DrinkTypeEnum, GenericApiError, PackType, PackTypeEnum } from "../../../types";
+import { z } from "zod";
+
+const requestSchema = z.object({
+  filterOptions: z.object({
+    type: z.union([z.literal("all"), z.enum(DrinkTypeEnum)]),
+    pack: z.enum(PackTypeEnum),
+    includePromo: z.boolean(),
+    search: z.string(),
+    sortBy: z.enum(["ratio", "price", "standardDrinks"]),
+    order: z.enum(["asc", "desc"]),
+  }),
+  // Existing callers may send numeric strings.
+  pageNum: z.coerce.number().int().positive().max(Number.MAX_SAFE_INTEGER),
+  pageSize: z.coerce.number().int().positive().max(Number.MAX_SAFE_INTEGER),
+});
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Drink[] | GenericApiError>) {
   let allDrinks: Drink[];
   switch (req.method) {
     case "POST":
-      const { filterOptions, pageNum, pageSize } = req.body;
-      let currentFilters: FilterOptions;
-      let pageNumInt: number;
-      let pageSizeInt: number;
-      try {
-        currentFilters = filterOptions;
-        pageNumInt = +pageNum;
-        pageSizeInt = +pageSize;
-      } catch (e) {
-        return res.status(400).json({ error: `Malformed request: ${e}` });
+      const parsed = requestSchema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ error: "Malformed request" });
       }
+      const { filterOptions: currentFilters, pageNum: pageNumInt, pageSize: pageSizeInt } = parsed.data;
       allDrinks = await getAllDrinks(currentFilters.type);
       console.log("allDrinks.length", allDrinks.length);
       // let currentDrinks = type === "all" ? Object.values(process.env.allDrinks).flat() : process.env.allDrinks[type];
@@ -58,6 +67,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       const pageSlice = filteredDrinks.slice((pageNumInt - 1) * pageSizeInt, pageNumInt * pageSizeInt);
       return res.status(200).json(pageSlice);
     default:
+      res.setHeader("Allow", "POST");
       return res.status(405).json({ error: "Invalid method" });
   }
 }

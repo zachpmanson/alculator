@@ -1,14 +1,14 @@
+import { withApiErrors } from "@/lib/api";
 import prisma from "@/lib/prisma";
 import { GenericApiError } from "@/types";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { z } from "zod";
 
 const schema = z.object({
-  product_code: z.string(),
+  product_code: z.string().min(1),
 });
-type Schema = z.infer<typeof schema>;
 
-export default async function handler(
+async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{ product_code: string; id: number }[] | GenericApiError>
 ) {
@@ -20,7 +20,7 @@ export default async function handler(
           error: response.error,
         });
       }
-      const body = req.body as Schema;
+      const body = response.data;
 
       await prisma.reports.create({
         data: {
@@ -45,6 +45,9 @@ export default async function handler(
       });
       return res.status(200).json(activeReports);
     default:
+      res.setHeader("Allow", "GET, POST");
       return res.status(405).json({ error: "Invalid method" });
   }
 }
+
+export default withApiErrors(handler);

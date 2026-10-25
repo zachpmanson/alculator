@@ -1,8 +1,9 @@
+import { withApiErrors } from "@/lib/api";
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
 import { GenericApiError } from "@/types";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<string[] | GenericApiError>) {
+async function handler(req: NextApiRequest, res: NextApiResponse<string[] | GenericApiError>) {
   switch (req.method) {
     case "GET":
       const blacklist = await prisma.reports.findMany({
@@ -19,6 +20,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       });
       return res.status(200).json(blacklist.map((d) => d.product_code));
     default:
+      res.setHeader("Allow", "GET");
       return res.status(405).json({ error: "Invalid method" });
   }
 }
+
+export default withApiErrors(handler);
