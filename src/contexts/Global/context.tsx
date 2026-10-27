@@ -3,10 +3,11 @@ import { Drink, FilterOptions } from "../../types";
 
 export type GlobalContextProps = {
   done: boolean;
+  loading: boolean;
   currentFilters: FilterOptions;
   setCurrentFilters: Dispatch<SetStateAction<FilterOptions>>;
   currentPage: number;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
+  loadNextPage: () => void;
   currentDrinks: Drink[];
   setCurrentDrinks: Dispatch<SetStateAction<Drink[]>>;
   onSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -18,6 +19,7 @@ export type GlobalContextProps = {
 
 const GlobalContext = createContext<GlobalContextProps>({
   done: false,
+  loading: true,
   currentFilters: {
     type: "all",
     pack: "bottle",
@@ -28,7 +30,7 @@ const GlobalContext = createContext<GlobalContextProps>({
   },
   setCurrentFilters: () => undefined,
   currentPage: 0,
-  setCurrentPage: () => undefined,
+  loadNextPage: () => undefined,
   currentDrinks: [],
   setCurrentDrinks: () => undefined,
   onSearchChange: () => undefined,

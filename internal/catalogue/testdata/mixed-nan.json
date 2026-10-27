@@ -1,0 +1,9 @@
+[
+  {"name":"Finite expensive","stockcode":"f-expensive","standardDrinks":2,"prices":{"bottle":10,"promobottle":12,"pack":20,"promopack":24,"case":40,"promocase":48},"units":{"pack":2,"case":4}},
+  {"name":"Missing promo","stockcode":"missing-promo","standardDrinks":2,"prices":{"bottle":4},"units":{}},
+  {"name":"Finite cheap","stockcode":"f-cheap","standardDrinks":2,"prices":{"bottle":4,"promobottle":6,"pack":8,"promopack":12,"case":16,"promocase":24},"units":{"pack":2,"case":4}},
+  {"name":"Missing base","stockcode":"missing-base","standardDrinks":2,"prices":{"promobottle":10},"units":{}},
+  {"name":"Finite tie","stockcode":"f-tie","standardDrinks":2,"prices":{"bottle":4,"promobottle":6,"pack":8,"promopack":12,"case":16,"promocase":24},"units":{"pack":2,"case":4}},
+  {"name":"Null base","stockcode":"null-base","standardDrinks":2,"prices":{"bottle":null,"promobottle":3},"units":{}},
+  {"name":"Null promo","stockcode":"null-promo","standardDrinks":2,"prices":{"bottle":8,"promobottle":null},"units":{}}
+]

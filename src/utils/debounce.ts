@@ -1,9 +1,15 @@
-export const debounce = (fn: (...args: any[]) => void, delay: number) => {
-  let timeoutId: NodeJS.Timeout;
-  return function debouncedFn(...args: any[]) {
+export const debounce = <Args extends unknown[]>(fn: (...args: Args) => void, delay: number) => {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  const debouncedFn = (...args: Args) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => {
+      timeoutId = undefined;
       fn(...args);
     }, delay);
   };
+  debouncedFn.cancel = () => {
+    clearTimeout(timeoutId);
+    timeoutId = undefined;
+  };
+  return debouncedFn;
 };

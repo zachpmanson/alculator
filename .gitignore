@@ -8,9 +8,8 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
+# generated embedded Vite output
+/internal/web/dist/
 
 # production
 /build
@@ -35,3 +34,20 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Go/backend runtime and local agent artifacts
+/bin/
+/dist/
+/data/
+/result
+/result-*
+/alculator
+*.test
+*.prof
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+/.pi-subagents/

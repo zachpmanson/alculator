@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 export enum DrinkTypeEnum {
   // all = "all",
   beer = "beer",
@@ -49,5 +47,3 @@ export type FilterOptions = {
   sortBy: SortByOption;
   order: Ordering;
 };
-
-export type GenericApiError = { error: string | z.ZodError<any> };
