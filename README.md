@@ -38,5 +38,6 @@ No real datasets are included.
 A bare `go test ./...` works without a frontend build. A bare `go build` is
 intentionally **not** a deployable UI build; serving without embedded assets fails
 before opening state. Use `make build` for the combined executable. No generated
-bundle is committed. Production Nix packaging, service and deployment are a
-separate, deferred milestone.
+bundle is committed. The [production Nix package and generic NixOS module](docs/production-nix.md)
+are available for review (`nix build`, `nix flake check`). Host integration and
+deployment remain separate, owner-approved work; nothing activates automatically.
