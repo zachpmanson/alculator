@@ -1,8 +1,9 @@
 # Proposal: Go backend, static React, SQLite
 
-Status: planning only, 27 October2026. Zach selected SQLite explicitly. No rewrite,
-data conversion or deployment has started. This replaces the Next-runtime hosting
-direction, rather than requiring the pending Next-specific hosting PR to merge.
+Status: implementation approved by Zach,27October2026; SQLite selected explicitly.
+This replaces the Next-runtime hosting direction, rather than requiring the
+pending Next-specific hosting PR to merge. Live data conversion/cutover still
+requires the verification and operational gates below.
 
 ## Target
 
@@ -117,4 +118,5 @@ existing Next sample (~158MiB app RAM) is a comparison, not the expected Go floo
 UI and existing normal-client/API behavior preserved, all145 rows reconciled,
 no production canary rows, no Node/Prisma runtime, measured memory, safe backup and
 restore, and no changes to the deployed API or existing PostgreSQL databases.
-This document authorizes planning only; implementation/cutover are separate work.
+Implementation was separately approved on27October2026. Live cutover remains
+separate, after private data/behaviour/runtime verification.
