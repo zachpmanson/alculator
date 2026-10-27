@@ -1,0 +1,313 @@
+{
+  "feeds": {
+    "beer": [
+      {
+        "name": "ΟΣ",
+        "stockcode": "unicode-0",
+        "standardDrinks": 2,
+        "prices": {
+          "bottle": 6
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      },
+      {
+        "name": "Οσ",
+        "stockcode": "unicode-1",
+        "standardDrinks": 2,
+        "prices": {
+          "bottle": 6
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      },
+      {
+        "name": "ΟΣΑ",
+        "stockcode": "unicode-2",
+        "standardDrinks": 2,
+        "prices": {
+          "bottle": 6
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      },
+      {
+        "name": "İ",
+        "stockcode": "unicode-3",
+        "standardDrinks": 2,
+        "prices": {
+          "bottle": 6
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      },
+      {
+        "name": "I",
+        "stockcode": "unicode-4",
+        "standardDrinks": 2,
+        "prices": {
+          "bottle": 6
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      },
+      {
+        "name": "ı",
+        "stockcode": "unicode-5",
+        "standardDrinks": 2,
+        "prices": {
+          "bottle": 6
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      }
+    ],
+    "cider": [],
+    "premix": [],
+    "spirits": [],
+    "redwine": [],
+    "whitewine": []
+  },
+  "cases": [
+    {
+      "name": "greek-final-sigma",
+      "request": {
+        "filterOptions": {
+          "type": "all",
+          "pack": "bottle",
+          "includePromo": false,
+          "search": "ος",
+          "sortBy": "ratio",
+          "order": "asc"
+        },
+        "pageNum": 1,
+        "pageSize": 20
+      },
+      "expected": [
+        {
+          "name": "ΟΣ",
+          "stockcode": "unicode-0",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        }
+      ]
+    },
+    {
+      "name": "greek-medial-sigma",
+      "request": {
+        "filterOptions": {
+          "type": "all",
+          "pack": "bottle",
+          "includePromo": false,
+          "search": "οσ",
+          "sortBy": "ratio",
+          "order": "asc"
+        },
+        "pageNum": 1,
+        "pageSize": 20
+      },
+      "expected": [
+        {
+          "name": "Οσ",
+          "stockcode": "unicode-1",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        },
+        {
+          "name": "ΟΣΑ",
+          "stockcode": "unicode-2",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        }
+      ]
+    },
+    {
+      "name": "greek-case-sensitive",
+      "request": {
+        "filterOptions": {
+          "type": "all",
+          "pack": "bottle",
+          "includePromo": false,
+          "search": "ΟΣ",
+          "sortBy": "ratio",
+          "order": "asc"
+        },
+        "pageNum": 1,
+        "pageSize": 20
+      },
+      "expected": []
+    },
+    {
+      "name": "dotted-i-expansion",
+      "request": {
+        "filterOptions": {
+          "type": "all",
+          "pack": "bottle",
+          "includePromo": false,
+          "search": "i̇",
+          "sortBy": "ratio",
+          "order": "asc"
+        },
+        "pageNum": 1,
+        "pageSize": 20
+      },
+      "expected": [
+        {
+          "name": "İ",
+          "stockcode": "unicode-3",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        }
+      ]
+    },
+    {
+      "name": "ascii-i",
+      "request": {
+        "filterOptions": {
+          "type": "all",
+          "pack": "bottle",
+          "includePromo": false,
+          "search": "i",
+          "sortBy": "ratio",
+          "order": "asc"
+        },
+        "pageNum": 1,
+        "pageSize": 20
+      },
+      "expected": [
+        {
+          "name": "İ",
+          "stockcode": "unicode-3",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        },
+        {
+          "name": "I",
+          "stockcode": "unicode-4",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        }
+      ]
+    },
+    {
+      "name": "dotless-i",
+      "request": {
+        "filterOptions": {
+          "type": "all",
+          "pack": "bottle",
+          "includePromo": false,
+          "search": "ı",
+          "sortBy": "ratio",
+          "order": "asc"
+        },
+        "pageNum": 1,
+        "pageSize": 20
+      },
+      "expected": [
+        {
+          "name": "ı",
+          "stockcode": "unicode-5",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        }
+      ]
+    },
+    {
+      "name": "dotted-i-case-sensitive",
+      "request": {
+        "filterOptions": {
+          "type": "all",
+          "pack": "bottle",
+          "includePromo": false,
+          "search": "İ",
+          "sortBy": "ratio",
+          "order": "asc"
+        },
+        "pageNum": 1,
+        "pageSize": 20
+      },
+      "expected": []
+    }
+  ]
+}

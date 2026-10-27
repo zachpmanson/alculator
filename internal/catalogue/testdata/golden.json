@@ -1,0 +1,1039 @@
+{
+  "feeds": {
+    "beer": [
+      null,
+      {
+        "name": "Example A",
+        "stockcode": "001",
+        "standardDrinks": 2,
+        "prices": {
+          "bottle": 6,
+          "promobottle": 4,
+          "pack": 20,
+          "promopack": 18,
+          "case": 30,
+          "promocase": 25
+        },
+        "units": {
+          "pack": 4,
+          "case": 12
+        },
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      },
+      {
+        "name": "Example B",
+        "stockcode": "002",
+        "standardDrinks": 2,
+        "prices": {
+          "bottle": 6,
+          "promobottle": 8,
+          "pack": 10,
+          "case": 20
+        },
+        "units": {
+          "pack": 2,
+          "case": 0
+        },
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      },
+      {
+        "name": "Missing promo",
+        "stockcode": "003",
+        "standardDrinks": 2,
+        "prices": {
+          "bottle": 4,
+          "pack": 9,
+          "case": 30
+        },
+        "units": {
+          "pack": 3,
+          "case": 6
+        },
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      },
+      {
+        "name": "Null base",
+        "stockcode": "004",
+        "standardDrinks": 1,
+        "prices": {
+          "bottle": null,
+          "promobottle": 3
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      },
+      {
+        "name": "Promo only",
+        "stockcode": "005",
+        "standardDrinks": 2,
+        "prices": {
+          "promobottle": 10
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      },
+      {
+        "name": "Zero standard",
+        "stockcode": "006",
+        "standardDrinks": 0,
+        "prices": {
+          "bottle": 1
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      },
+      {
+        "name": "Missing standard",
+        "stockcode": "007",
+        "prices": {
+          "bottle": 1
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      },
+      {
+        "name": "No unit",
+        "stockcode": "008",
+        "standardDrinks": 2,
+        "prices": {
+          "pack": 8,
+          "case": 20
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      },
+      {
+        "name": "Zero price",
+        "stockcode": "009",
+        "standardDrinks": 2,
+        "prices": {
+          "bottle": 0
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      }
+    ],
+    "cider": [
+      {
+        "name": "Tie cider",
+        "stockcode": "010",
+        "standardDrinks": 2,
+        "prices": {
+          "bottle": 6
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      }
+    ],
+    "premix": [
+      {
+        "name": "Tie premix",
+        "stockcode": "011",
+        "standardDrinks": 2,
+        "prices": {
+          "bottle": 6
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      }
+    ],
+    "spirits": [
+      {
+        "name": "Tie spirits",
+        "stockcode": "012",
+        "standardDrinks": 2,
+        "prices": {
+          "bottle": 6
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      }
+    ],
+    "redwine": [
+      {
+        "name": "Tie red",
+        "stockcode": "013",
+        "standardDrinks": 2,
+        "prices": {
+          "bottle": 6
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      }
+    ],
+    "whitewine": [
+      {
+        "name": "Tie white",
+        "stockcode": "014",
+        "standardDrinks": 2,
+        "prices": {
+          "bottle": 6
+        },
+        "units": {},
+        "percentage": "5%",
+        "extra": {
+          "retained": true
+        }
+      }
+    ]
+  },
+  "cases": [
+    {
+      "name": "all-stable-ties",
+      "request": {
+        "filterOptions": {
+          "type": "all",
+          "pack": "bottle",
+          "includePromo": false,
+          "search": "",
+          "sortBy": "ratio",
+          "order": "asc"
+        },
+        "pageNum": "1",
+        "pageSize": "20"
+      },
+      "expected": [
+        {
+          "name": "Missing promo",
+          "stockcode": "003",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 4,
+            "pack": 9,
+            "case": 30
+          },
+          "units": {
+            "pack": 3,
+            "case": 6
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 4,
+          "ratio": 2
+        },
+        {
+          "name": "Example A",
+          "stockcode": "001",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6,
+            "promobottle": 4,
+            "pack": 20,
+            "promopack": 18,
+            "case": 30,
+            "promocase": 25
+          },
+          "units": {
+            "pack": 4,
+            "case": 12
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        },
+        {
+          "name": "Example B",
+          "stockcode": "002",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6,
+            "promobottle": 8,
+            "pack": 10,
+            "case": 20
+          },
+          "units": {
+            "pack": 2,
+            "case": 0
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        },
+        {
+          "name": "Tie cider",
+          "stockcode": "010",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        },
+        {
+          "name": "Tie premix",
+          "stockcode": "011",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        },
+        {
+          "name": "Tie spirits",
+          "stockcode": "012",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        },
+        {
+          "name": "Tie red",
+          "stockcode": "013",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        },
+        {
+          "name": "Tie white",
+          "stockcode": "014",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        }
+      ]
+    },
+    {
+      "name": "page-two",
+      "request": {
+        "filterOptions": {
+          "type": "all",
+          "pack": "bottle",
+          "includePromo": false,
+          "search": "",
+          "sortBy": "ratio",
+          "order": "asc"
+        },
+        "pageNum": "2",
+        "pageSize": "3"
+      },
+      "expected": [
+        {
+          "name": "Tie cider",
+          "stockcode": "010",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        },
+        {
+          "name": "Tie premix",
+          "stockcode": "011",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        },
+        {
+          "name": "Tie spirits",
+          "stockcode": "012",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        }
+      ]
+    },
+    {
+      "name": "price-desc",
+      "request": {
+        "filterOptions": {
+          "type": "beer",
+          "pack": "bottle",
+          "includePromo": false,
+          "search": "",
+          "sortBy": "price",
+          "order": "desc"
+        },
+        "pageNum": 1,
+        "pageSize": 20
+      },
+      "expected": [
+        {
+          "name": "Example A",
+          "stockcode": "001",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6,
+            "promobottle": 4,
+            "pack": 20,
+            "promopack": 18,
+            "case": 30,
+            "promocase": 25
+          },
+          "units": {
+            "pack": 4,
+            "case": 12
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        },
+        {
+          "name": "Example B",
+          "stockcode": "002",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6,
+            "promobottle": 8,
+            "pack": 10,
+            "case": 20
+          },
+          "units": {
+            "pack": 2,
+            "case": 0
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        },
+        {
+          "name": "Missing promo",
+          "stockcode": "003",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 4,
+            "pack": 9,
+            "case": 30
+          },
+          "units": {
+            "pack": 3,
+            "case": 6
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 4,
+          "ratio": 2
+        }
+      ]
+    },
+    {
+      "name": "promo-missing-null-max",
+      "request": {
+        "filterOptions": {
+          "type": "beer",
+          "pack": "bottle",
+          "includePromo": true,
+          "search": "",
+          "sortBy": "ratio",
+          "order": "asc"
+        },
+        "pageNum": 1,
+        "pageSize": 20
+      },
+      "expected": [
+        {
+          "name": "Example A",
+          "stockcode": "001",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6,
+            "promobottle": 4,
+            "pack": 20,
+            "promopack": 18,
+            "case": 30,
+            "promocase": 25
+          },
+          "units": {
+            "pack": 4,
+            "case": 12
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        },
+        {
+          "name": "Example B",
+          "stockcode": "002",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6,
+            "promobottle": 8,
+            "pack": 10,
+            "case": 20
+          },
+          "units": {
+            "pack": 2,
+            "case": 0
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 8,
+          "ratio": 4
+        },
+        {
+          "name": "Missing promo",
+          "stockcode": "003",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 4,
+            "pack": 9,
+            "case": 30
+          },
+          "units": {
+            "pack": 3,
+            "case": 6
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": null,
+          "ratio": null
+        },
+        {
+          "name": "Null base",
+          "stockcode": "004",
+          "standardDrinks": 1,
+          "prices": {
+            "bottle": null,
+            "promobottle": 3
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 3,
+          "ratio": 3
+        },
+        {
+          "name": "Promo only",
+          "stockcode": "005",
+          "standardDrinks": 2,
+          "prices": {
+            "promobottle": 10
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": null,
+          "ratio": null
+        }
+      ]
+    },
+    {
+      "name": "pack-multiplication",
+      "request": {
+        "filterOptions": {
+          "type": "all",
+          "pack": "pack",
+          "includePromo": false,
+          "search": "",
+          "sortBy": "ratio",
+          "order": "asc"
+        },
+        "pageNum": 1,
+        "pageSize": 20
+      },
+      "expected": [
+        {
+          "name": "Missing promo",
+          "stockcode": "003",
+          "standardDrinks": 6,
+          "prices": {
+            "bottle": 4,
+            "pack": 9,
+            "case": 30
+          },
+          "units": {
+            "pack": 3,
+            "case": 6
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 9,
+          "ratio": 1.5
+        },
+        {
+          "name": "Example A",
+          "stockcode": "001",
+          "standardDrinks": 8,
+          "prices": {
+            "bottle": 6,
+            "promobottle": 4,
+            "pack": 20,
+            "promopack": 18,
+            "case": 30,
+            "promocase": 25
+          },
+          "units": {
+            "pack": 4,
+            "case": 12
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 20,
+          "ratio": 2.5
+        },
+        {
+          "name": "Example B",
+          "stockcode": "002",
+          "standardDrinks": 4,
+          "prices": {
+            "bottle": 6,
+            "promobottle": 8,
+            "pack": 10,
+            "case": 20
+          },
+          "units": {
+            "pack": 2,
+            "case": 0
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 10,
+          "ratio": 2.5
+        }
+      ]
+    },
+    {
+      "name": "promo-pack",
+      "request": {
+        "filterOptions": {
+          "type": "all",
+          "pack": "pack",
+          "includePromo": true,
+          "search": "",
+          "sortBy": "ratio",
+          "order": "asc"
+        },
+        "pageNum": 1,
+        "pageSize": 20
+      },
+      "expected": [
+        {
+          "name": "Example A",
+          "stockcode": "001",
+          "standardDrinks": 8,
+          "prices": {
+            "bottle": 6,
+            "promobottle": 4,
+            "pack": 20,
+            "promopack": 18,
+            "case": 30,
+            "promocase": 25
+          },
+          "units": {
+            "pack": 4,
+            "case": 12
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 20,
+          "ratio": 2.5
+        },
+        {
+          "name": "Example B",
+          "stockcode": "002",
+          "standardDrinks": 4,
+          "prices": {
+            "bottle": 6,
+            "promobottle": 8,
+            "pack": 10,
+            "case": 20
+          },
+          "units": {
+            "pack": 2,
+            "case": 0
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": null,
+          "ratio": null
+        },
+        {
+          "name": "Missing promo",
+          "stockcode": "003",
+          "standardDrinks": 6,
+          "prices": {
+            "bottle": 4,
+            "pack": 9,
+            "case": 30
+          },
+          "units": {
+            "pack": 3,
+            "case": 6
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": null,
+          "ratio": null
+        }
+      ]
+    },
+    {
+      "name": "case-multiplication",
+      "request": {
+        "filterOptions": {
+          "type": "all",
+          "pack": "case",
+          "includePromo": false,
+          "search": "",
+          "sortBy": "standardDrinks",
+          "order": "desc"
+        },
+        "pageNum": 1,
+        "pageSize": 20
+      },
+      "expected": [
+        {
+          "name": "Example A",
+          "stockcode": "001",
+          "standardDrinks": 24,
+          "prices": {
+            "bottle": 6,
+            "promobottle": 4,
+            "pack": 20,
+            "promopack": 18,
+            "case": 30,
+            "promocase": 25
+          },
+          "units": {
+            "pack": 4,
+            "case": 12
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 30,
+          "ratio": 1.25
+        },
+        {
+          "name": "Missing promo",
+          "stockcode": "003",
+          "standardDrinks": 12,
+          "prices": {
+            "bottle": 4,
+            "pack": 9,
+            "case": 30
+          },
+          "units": {
+            "pack": 3,
+            "case": 6
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 30,
+          "ratio": 2.5
+        }
+      ]
+    },
+    {
+      "name": "promo-enum-quirk",
+      "request": {
+        "filterOptions": {
+          "type": "all",
+          "pack": "promobottle",
+          "includePromo": true,
+          "search": "",
+          "sortBy": "ratio",
+          "order": "asc"
+        },
+        "pageNum": 1,
+        "pageSize": 20
+      },
+      "expected": [
+        {
+          "name": "Example A",
+          "stockcode": "001",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6,
+            "promobottle": 4,
+            "pack": 20,
+            "promopack": 18,
+            "case": 30,
+            "promocase": 25
+          },
+          "units": {
+            "pack": 4,
+            "case": 12
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": null,
+          "ratio": null
+        },
+        {
+          "name": "Example B",
+          "stockcode": "002",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6,
+            "promobottle": 8,
+            "pack": 10,
+            "case": 20
+          },
+          "units": {
+            "pack": 2,
+            "case": 0
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": null,
+          "ratio": null
+        },
+        {
+          "name": "Null base",
+          "stockcode": "004",
+          "standardDrinks": 1,
+          "prices": {
+            "bottle": null,
+            "promobottle": 3
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": null,
+          "ratio": null
+        },
+        {
+          "name": "Promo only",
+          "stockcode": "005",
+          "standardDrinks": 2,
+          "prices": {
+            "promobottle": 10
+          },
+          "units": {},
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": null,
+          "ratio": null
+        }
+      ]
+    },
+    {
+      "name": "search-lowercase",
+      "request": {
+        "filterOptions": {
+          "type": "all",
+          "pack": "bottle",
+          "includePromo": false,
+          "search": "example",
+          "sortBy": "ratio",
+          "order": "asc"
+        },
+        "pageNum": 1,
+        "pageSize": 20
+      },
+      "expected": [
+        {
+          "name": "Example A",
+          "stockcode": "001",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6,
+            "promobottle": 4,
+            "pack": 20,
+            "promopack": 18,
+            "case": 30,
+            "promocase": 25
+          },
+          "units": {
+            "pack": 4,
+            "case": 12
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        },
+        {
+          "name": "Example B",
+          "stockcode": "002",
+          "standardDrinks": 2,
+          "prices": {
+            "bottle": 6,
+            "promobottle": 8,
+            "pack": 10,
+            "case": 20
+          },
+          "units": {
+            "pack": 2,
+            "case": 0
+          },
+          "percentage": "5%",
+          "extra": {
+            "retained": true
+          },
+          "price": 6,
+          "ratio": 3
+        }
+      ]
+    },
+    {
+      "name": "search-case-sensitive",
+      "request": {
+        "filterOptions": {
+          "type": "all",
+          "pack": "bottle",
+          "includePromo": false,
+          "search": "Example",
+          "sortBy": "ratio",
+          "order": "asc"
+        },
+        "pageNum": 1,
+        "pageSize": 20
+      },
+      "expected": []
+    },
+    {
+      "name": "large-page",
+      "request": {
+        "filterOptions": {
+          "type": "all",
+          "pack": "bottle",
+          "includePromo": false,
+          "search": "",
+          "sortBy": "ratio",
+          "order": "asc"
+        },
+        "pageNum": "9007199254740991",
+        "pageSize": "9007199254740991"
+      },
+      "expected": []
+    }
+  ]
+}
