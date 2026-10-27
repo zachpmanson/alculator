@@ -17,6 +17,7 @@ import (
 	"github.com/zachpmanson/alculator/internal/catalogue"
 	"github.com/zachpmanson/alculator/internal/httpapi"
 	"github.com/zachpmanson/alculator/internal/reportstore"
+	"github.com/zachpmanson/alculator/internal/web"
 )
 
 func main() {
@@ -81,6 +82,10 @@ func run(ctx context.Context, args []string, stdin io.Reader, stdout io.Writer, 
 	if password == "" {
 		return errors.New("REPORT_ADMIN_PASSWORD must be nonempty")
 	}
+	assets, err := web.Assets()
+	if err != nil {
+		return err
+	}
 	store, err := reportstore.Open(*dbPath)
 	if err != nil {
 		return errors.New("cannot open reports database")
@@ -88,6 +93,10 @@ func run(ctx context.Context, args []string, stdin io.Reader, stdout io.Writer, 
 	defer store.Close()
 	drinks := catalogue.New(env("DATA_REPO"), catalogue.Options{})
 	handler, err := httpapi.New(store, drinks, password)
+	if err != nil {
+		return err
+	}
+	handler, err = web.New(handler, assets, store.Health)
 	if err != nil {
 		return err
 	}

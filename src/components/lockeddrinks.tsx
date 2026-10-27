@@ -1,11 +1,12 @@
+import { Fragment } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useGlobal } from "../contexts/Global/context";
 
 export default function LockedDrinks() {
   const { currentLockedDrinks, setCurrentLockedDrinks } = useGlobal();
 
-  const tableBody = currentLockedDrinks.map((item, index) => (
-    <>
+  const tableBody = currentLockedDrinks.map((item) => (
+    <Fragment key={item.stockcode}>
       <div className="title-line flex space-between align-center">
         <a href={`https://www.danmurphys.com.au/product/${item.stockcode}`}>{item.name}</a>
         <div className="close-button">
@@ -17,11 +18,11 @@ export default function LockedDrinks() {
       </div>
 
       <div className="flex space-evenly">
-        <td>${item.price}</td>
-        <td>{Math.round(10 * item.standardDrinks) / 10} SD</td>
-        <td>${Math.round(100 * item.ratio) / 100}/SD</td>
+        <span>${item.price}</span>
+        <span>{Math.round(10 * item.standardDrinks) / 10} SD</span>
+        <span>${Math.round(100 * item.ratio) / 100}/SD</span>
       </div>
-    </>
+    </Fragment>
   ));
 
   return (

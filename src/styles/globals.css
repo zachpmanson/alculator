@@ -60,7 +60,8 @@ body {
 }
 
 th,
-td {
+td,
+.locked-drinks span {
   padding: 0.25rem 1rem;
 }
 

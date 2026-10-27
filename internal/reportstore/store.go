@@ -77,6 +77,12 @@ func Open(path string) (*Store, error) {
 	}
 	return &Store{db: db}, nil
 }
+
+// Health checks database availability without scanning reports or the catalogue.
+func (s *Store) Health(ctx context.Context) error {
+	var one int
+	return s.db.QueryRowContext(ctx, "SELECT 1").Scan(&one)
+}
 func (s *Store) Close() error { return s.db.Close() }
 func (s *Store) Create(ctx context.Context, code string, timestamp int64) error {
 	_, err := s.db.ExecContext(ctx, `INSERT INTO reports(product_code,is_resolved,timestamp) VALUES(?,0,?)`, code, timestamp)

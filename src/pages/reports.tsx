@@ -1,13 +1,8 @@
 import DrinkCard from "@/components/drinkcard";
 import { useGlobal } from "@/contexts/Global/context";
-import { getAllDrinks } from "@/lib/drinks";
-import prisma from "@/lib/prisma";
 import { Drink, PackTypeEnum } from "@/types";
-import { debounce } from "@/utils/debounce";
-import { GetServerSideProps } from "next";
-import Head from "next/head";
-import Link from "next/link";
-import { ChangeEvent, useEffect, useState } from "react";
+import { Link } from "../router";
+import { useEffect, useState } from "react";
 
 type ReportProps = {
   activeReports: {
@@ -17,10 +12,32 @@ type ReportProps = {
   drinkDetails: Drink[];
 };
 
-export default function Reports({ activeReports, drinkDetails }: ReportProps) {
+export default function Reports() {
   const { setCurrentFilters, setReportModeActive } = useGlobal();
   const [password, setPassword] = useState("");
-  const [visibleDrinks, setVisibleDrinks] = useState(drinkDetails);
+  const [activeReports, setActiveReports] = useState<ReportProps["activeReports"]>([]);
+  const [visibleDrinks, setVisibleDrinks] = useState<Drink[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    document.title = "Pending Reports";
+    const controller = new AbortController();
+    fetch("/api/reports", { signal: controller.signal })
+      .then((res) => {
+        if (!res.ok) throw new Error("Could not load reports");
+        return res.json() as Promise<ReportProps>;
+      })
+      .then(({ activeReports, drinkDetails }) => {
+        setActiveReports(activeReports);
+        setVisibleDrinks(drinkDetails);
+        setLoading(false);
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) { setError("Could not load reports. Please reload to try again."); setLoading(false); }
+      });
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     setCurrentFilters({
@@ -34,24 +51,19 @@ export default function Reports({ activeReports, drinkDetails }: ReportProps) {
     setReportModeActive(false);
   }, [setCurrentFilters, setReportModeActive]);
 
-  const handleResult = (item: Drink, blacklisted: boolean) => {
-    const resolvedReports = activeReports.filter((r) => r.product_code === item.stockcode);
-    for (let r of resolvedReports) {
-      fetch("/api/blacklist/resolve", {
+  const handleResult = async (item: Drink, blacklisted: boolean) => {
+    setError("");
+    try {
+      const resolvedReports = activeReports.filter((r) => r.product_code === item.stockcode);
+      const responses = await Promise.all(resolvedReports.map((r) => fetch("/api/blacklist/resolve", {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: r.id,
-          blacklisted: blacklisted,
-          password: password,
-        }),
-      }).then((res) => {
-        if (res.status === 200) {
-          setVisibleDrinks((old) => old.filter((d) => d.stockcode !== item.stockcode));
-        }
-      });
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: r.id, blacklisted, password }),
+      })));
+      if (responses.some((res) => !res.ok)) throw new Error("Resolution failed");
+      setVisibleDrinks((old) => old.filter((d) => d.stockcode !== item.stockcode));
+    } catch {
+      setError("Could not resolve report. Check the password and try again.");
     }
   };
 
@@ -73,16 +85,8 @@ export default function Reports({ activeReports, drinkDetails }: ReportProps) {
     </div>
   ));
 
-  const onSearchChange: (event: ChangeEvent<HTMLInputElement>) => void = (event) => {
-    const searchFieldString = event.target.value;
-    setPassword(searchFieldString);
-  };
-
   return (
     <>
-      <Head>
-        <title>Pending Reports</title>
-      </Head>
 
       <main>
         <header className="col center text-center">
@@ -99,29 +103,14 @@ export default function Reports({ activeReports, drinkDetails }: ReportProps) {
           name="search"
           className="searchbox fill"
           placeholder="Password"
-          onChange={debounce(onSearchChange, 250)}
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
         />
+        {loading && <p role="status">Loading reports…</p>}
+        {error && <p role="alert">{error}</p>}
+        {!loading && !error && visibleDrinks.length === 0 && <p>No pending reports</p>}
         {drinkCards}
       </div>
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const activeReports = await prisma.reports.findMany({
-    select: {
-      id: true,
-      product_code: true,
-    },
-    where: {
-      is_resolved: false,
-    },
-    orderBy: {
-      timestamp: "asc",
-    },
-  });
-  let allDrinks = await getAllDrinks("all");
-  let drinkList = activeReports.map((r) => r.product_code);
-  const filteredDrinks = allDrinks.filter((d) => !!d && drinkList.includes(d.stockcode));
-  return { props: { activeReports, drinkDetails: filteredDrinks } };
-};

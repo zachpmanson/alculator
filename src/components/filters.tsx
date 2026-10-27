@@ -1,14 +1,16 @@
 import { useGlobal } from "../contexts/Global/context";
 import { DrinkType, Ordering, PackType, SortByOption } from "../types";
 import { debounce } from "@/utils/debounce";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { timeAgo } from "@/utils/timesince";
-import Link from "next/link";
+import { Link } from "../router";
 
 export default function Filters() {
   const { currentFilters, setCurrentFilters, onSearchChange, reportModeActive, setReportModeActive } = useGlobal();
   const initPromo = currentFilters.includePromo;
   const [lastUpdate, setLastUpdate] = useState<Date>();
+  const debouncedSearch = useMemo(() => debounce(onSearchChange, 250), [onSearchChange]);
+  useEffect(() => () => debouncedSearch.cancel(), [debouncedSearch]);
 
   useEffect(() => {
     fetch("/api/drinks/timestamp")
@@ -27,7 +29,8 @@ export default function Filters() {
             name="search"
             className="searchbox fill"
             placeholder="Search..."
-            onChange={debounce(onSearchChange, 250)}
+            defaultValue={currentFilters.search}
+            onChange={debouncedSearch}
           />
         </div>
         <div className="flex space-between">

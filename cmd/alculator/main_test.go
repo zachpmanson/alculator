@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/zachpmanson/alculator/internal/reportstore"
+	"github.com/zachpmanson/alculator/internal/web"
 )
 
 func emptyEnv(string) string { return "" }
@@ -86,6 +87,9 @@ func TestImportInvalidUnicodeBeforeDatabaseCreation(t *testing.T) {
 }
 
 func TestServeGracefulShutdown(t *testing.T) {
+	if _, err := web.Assets(); err != nil {
+		t.Skip("requires built frontend: make test-http")
+	}
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
 	path := filepath.Join(t.TempDir(), "reports.sqlite")

@@ -3,7 +3,6 @@ import {
   LockOpenIcon as LockOpenIconOutline,
 } from "@heroicons/react/24/outline";
 import { LockClosedIcon as LockClosedIconSolid, LockOpenIcon as LockOpenIconSolid } from "@heroicons/react/24/solid";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useGlobal } from "../contexts/Global/context";
 import { Drink, PackType } from "../types";
@@ -51,7 +50,6 @@ export default function DrinkCard({ item, localPack }: DrinkCardProps) {
       e.stopPropagation();
       e.preventDefault();
       setGreyed(true);
-      console.log("Reporting", item.stockcode);
       fetch("/api/blacklist/report", {
         method: "POST",
         headers: {
@@ -64,8 +62,7 @@ export default function DrinkCard({ item, localPack }: DrinkCardProps) {
         if (res.status === 201) {
           setCurrentDrinks((old) => old.filter((d) => d.stockcode !== item.stockcode));
         }
-        setGreyed(false);
-      });
+      }).catch(() => { /* Allow retry after a network failure. */ }).finally(() => setGreyed(false));
     }
   };
 
@@ -76,8 +73,9 @@ export default function DrinkCard({ item, localPack }: DrinkCardProps) {
         href={`https://www.danmurphys.com.au/product/${item.stockcode}`}
         onClick={handleClick}
       >
-        <Image
+        <img
           alt="Image of drink"
+          loading="lazy"
           height="100"
           width="80"
           src={`https://media.danmurphys.com.au/dmo/product/${item.stockcode}-1.png`}
